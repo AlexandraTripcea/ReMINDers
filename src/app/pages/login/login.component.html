@@ -1,0 +1,21 @@
+<form [formGroup]="loginForm" (submit)="onSubmit()" class="container">
+  <label for="email">Email</label>
+  <input class="contact-input-field" type="text" id="email" name="email" formControlName="email">
+  <div *ngIf="!controls.email?.valid && (controls.email?.dirty || controls.email?.touched)">
+    <div *ngIf="submitted && controls.email.errors.required">
+      <p style="color:red">I might need your contact mail</p>
+    </div>
+    <div *ngIf="submitted && controls.email.errors.pattern">
+      <p style="color:red">We both know that's not a mail</p>
+    </div>
+  </div>
+  <label for="password">Password</label>
+  <input class="contact-input-field" type="password" id="password" name="password" formControlName="password">
+  <div *ngIf="!controls.password?.valid && (controls.password?.dirty || controls.password?.touched)">
+    <div *ngIf="submitted && controls.password.errors.required">
+      <p style="color:red"> Please do provide a password</p>
+    </div>
+  </div>
+
+  <button type="submit" class="contact-submit">Submit</button>
+</form>
