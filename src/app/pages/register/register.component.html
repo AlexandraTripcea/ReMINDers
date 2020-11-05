@@ -1,2 +1,43 @@
-<button (click)="test=!test" >TESTTT</button>
-<p [@fader]  *ngIf="test"> KURWA BLYAT CYKA</p>
+<form [formGroup]="registerForm" (submit)="onSubmit()" class="container-fluid">
+
+  <mat-form-field *ngIf="showNickname" class="contact-input-field">
+    <mat-label>What's your nickname?</mat-label>
+    <input matInput type="text" id="nickname" name="nickname" formControlName="nickname">
+  </mat-form-field>
+  <div *ngIf="!controls.email?.valid && (controls.email?.dirty || controls.email?.touched)">
+    <div *ngIf="submitted && controls.email.errors.required">
+      <p class="alert-danger">I might need your contact mail</p>
+    </div>
+    <div *ngIf="submitted && controls.email.errors.pattern">
+      <p class="alert-danger">We both know that's not a mail</p>o
+    </div>
+  </div>
+  <mat-form-field class="contact-input-field">
+    <mat-label>Where are you from?</mat-label>
+    <input matInput type="text" id="home" name="home" formControlName="home">
+  </mat-form-field>
+  <div *ngIf="!controls.password?.valid && (controls.password?.dirty || controls.password?.touched)">
+    <div *ngIf="submitted && controls.password.errors.required">
+      <p class="alert-danger">Please do provide a password</p>
+    </div>
+  </div>
+
+  <mat-form-field class="contact-input-field">
+    <mat-label>You are interested in...</mat-label>
+    <input matInput type="text" id="sexualPref" name="sexualPref" formControlName="sexualPref">
+  </mat-form-field>
+  <div *ngIf="!controls.password?.valid && (controls.password?.dirty || controls.password?.touched)">
+    <div *ngIf="submitted && controls.password.errors.required">
+      <p class="alert-danger">Please do provide a password</p>
+    </div>
+  </div>
+
+  <div class="contact-input-field" *ngIf="showSexualPref">
+    <mat-label>You are...</mat-label>
+    <mat-radio-group aria-label="Select an option">
+      <mat-radio-button *ngFor="let button of controls.sexualPref">
+        Test
+      </mat-radio-button>
+    </mat-radio-group>
+  </div>
+</form>
