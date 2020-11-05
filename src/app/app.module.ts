@@ -11,6 +11,7 @@ import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {environment} from '../environments/environment';
 import {NavbarComponent} from './components/navbar/navbar.component';
 import {MatUiModule} from './mat-ui.module';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import {MatUiModule} from './mat-ui.module';
     LoginComponent,
     RegisterComponent,
     HomepageComponent,
-    NavbarComponent
+    NavbarComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
