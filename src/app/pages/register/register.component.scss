@@ -4,16 +4,36 @@
   align-self: center;
   justify-content: center;
 }
-
+.user-pass-form {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  flex-flow: column;
+  width:20%;
+  top:20%;
+  align-self: center;
+}
 .welcome-container{
   display: flex;
+  position: absolute;
   flex-flow: column;
   height:15vh;
+  top:20%;
+  left:0;
+  right:0;
   justify-content: space-around;
 }
 
 .mindmatch-title{
   align-self: center;
+}
+
+.questionaire{
+  padding:5%;
+  height:60vh;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-evenly;
 }
 
 .submit-button{
@@ -24,6 +44,12 @@
   position: absolute;
   align-self: center;
   top:20%;
+  display: flex;
+  flex-flow: column;
+  width:20%;     // this needs media query
+  >mat-form-field{
+    width: 100%;
+  }
 }
 
 .radio-container{

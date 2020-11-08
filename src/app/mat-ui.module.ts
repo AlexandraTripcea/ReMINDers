@@ -33,6 +33,9 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatRadioModule,
     BrowserAnimationsModule,
     MatTabsModule,
+    MatCardModule,
+    MatTabsModule,
+    MatExpansionModule,
   ]
 })
 export class MatUiModule { }

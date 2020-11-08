@@ -15,8 +15,11 @@ export class AuthService {
     return this.auth.signInWithEmailAndPassword(credentials.email, credentials.password);
   }
 
-  getLoginStatus(): any {
+  getLoginStatus(): Promise<any> {
     return this.auth.currentUser;
   }
 
+  registerNewUser(newUser: any): Promise<any> {
+    return this.auth.createUserWithEmailAndPassword(newUser.email, newUser.password);
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../services/user.service';
 
 @Component({
@@ -8,11 +8,13 @@ import {UserService} from '../../services/user.service';
 })
 export class MatcherComponent implements OnInit {
   users = [];
+  path = '/users';
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService) {
+  }
 
   ngOnInit(): void {
-    this.userService.getUsersList().subscribe(list => this.users = list);
+    this.userService.getFromFirestore(this.path).subscribe(list => this.users = list);
   }
 
 }

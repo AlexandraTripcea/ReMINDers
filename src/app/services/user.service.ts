@@ -10,7 +10,13 @@ export class UserService {
   constructor(private firestore: AngularFirestore) {
   }
 
-  getUsersList(): Observable<any> {
-    return this.firestore.collection('/users').valueChanges();
+  getFromFirestore(path: string): Observable<any> {
+    return this.firestore.collection(path).valueChanges();
   }
+
+
+  storeToFirestoreAtDoc(docId: any, path: string, docData: any): Promise<any> {
+    return this.firestore.collection(path).doc(docId).set(docData);
+  }
+
 }
