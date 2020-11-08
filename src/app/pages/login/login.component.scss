@@ -1,17 +1,13 @@
-.container {
+.container-fluid {
   display: flex;
   justify-content: center;
   flex-flow: column;
-  width: 20%;
 }
 .contact-input-field {
   width: 20%;
 }
 
-.contact-submit {
-  margin-top: 2%;
-  width: min-content;
-}
+
 
 .issatrap {
   position: absolute;

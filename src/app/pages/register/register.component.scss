@@ -5,7 +5,32 @@
   justify-content: center;
 }
 
-.contact-input-field{
-  width:20%;
+.welcome-container{
+  display: flex;
+  flex-flow: column;
+  height:15vh;
+  justify-content: space-around;
+}
+
+.mindmatch-title{
   align-self: center;
+}
+
+.submit-button{
+  align-self: center;
+}
+
+.contact-input-field{
+  position: absolute;
+  align-self: center;
+  top:20%;
+}
+
+.radio-container{
+  display: flex;
+  flex-flow: row;
+  justify-content: space-evenly;
+  >mat-radio-button{
+    margin:2%;
+  }
 }

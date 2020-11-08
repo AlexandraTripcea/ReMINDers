@@ -1,31 +1,33 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subject} from 'rxjs';
-import {fader} from '../../../animations';
-import {Form, FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {slider} from '../../../animations';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
-  animations: [fader],
+  animations: [slider],
 })
 export class RegisterComponent implements OnInit, OnDestroy {
   private destroy$: Subject<boolean>;
   registerForm: FormGroup;
   submitted = false;
-  showNickname = true;
+  showNickname = false;
   showHome = false;
   showSexualPref = false;
   showGender = false;
   showAnswers = false;
-
+  showWelcome= true;
+  sexualPrefOptions = ['Men', 'Women', 'Both'];
+  genderOptions = ['Man', 'Woman', 'Other'];
   constructor(private fb: FormBuilder) {
     this.destroy$ = new Subject<boolean>();
     this.registerForm = this.fb.group({
         nickname: ['', Validators.required],
         home: ['', Validators.required],
-        sexualPref: [this.getControlArray(3), Validators.required],
-        gender: [this.getControlArray(3), Validators.required],
+        sexualPref: ['', Validators.required],
+        gender: ['', Validators.required],
       }
     );
   }
@@ -34,13 +36,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
     return this.registerForm.controls;
   }
 
-  private getControlArray(nrOfControls: number): FormArray {
-    const controlArray = [];
-    for (let i = 0; i < nrOfControls; ++i) {
-      controlArray.push(this.fb.control(0));
-    }
-    return this.fb.array(controlArray);
-  }
 
   onSubmit(): void {
     this.submitted = true;

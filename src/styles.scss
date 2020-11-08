@@ -3,7 +3,6 @@
 // For more information: https://material.angular.io/guide/theming
 @import '~@angular/material/theming';
 // Plus imports for other components in your app.
-
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
@@ -36,4 +35,75 @@ $ReMINDers-theme: mat-light-theme((
 /* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; }
+
+.mindmatch-font{
+  font-family: Roboto;
+  letter-spacing: 0.5px;
+}
+.mindmatch-title{
+  font-family: Roboto;
+  letter-spacing: 1px;
+
+}
+
+.submit-button {
+  margin-top: 2%;
+  width: min-content;
+}
+
+@media only screen and (max-width: 767px) {
+  .mindmatch-font{
+    font-size:17px;
+  }
+  .icon{
+    font-size: 30px;
+  }
+  .mindmatch-title{
+    font-size: 22px;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1439px) {
+
+  .icon{
+    font-size: 45px;
+  }
+  .mindmatch-title{
+    font-size: 30px;
+  }
+}
+
+@media only screen and (min-width: 1440px) and (max-width: 2158px) {
+
+  .icon{
+    font-size:45px;
+  }
+  .mindmatch-title{
+    font-size:32px;
+  }
+}
+
+@media only screen and (min-width: 2159px) and (max-width: 3838px) {
+  .mindmatch-font {
+    font-size: 36px; //xx-large
+  }
+  .icon{
+    font-size:75px;
+  }
+  .mindmatch-title{
+    font-size:45px;
+  }
+}
+
+@media only screen and (min-width: 3839px) {
+  .mindmatch-font {
+    font-size: 54px; //gargantuan
+  }
+  .icon{
+    font-size:110px;
+  }
+  .mindmatch-title{
+    font-size:75px;
+  }
+}
