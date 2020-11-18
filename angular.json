@@ -30,7 +30,10 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/jquery/dist/jquery.min.js",
+              "./node_modules/popper.js/dist/umd/popper.min.js",
+              "./node_modules/bootstrap/dist/js/bootstrap.min.js"]
           },
           "configurations": {
             "production": {
@@ -92,6 +95,9 @@
               "src/assets"
             ],
             "styles": [
+              {
+                "input": "src/mindmatch-theme.scss"
+              },
               "src/styles.scss"
             ],
             "scripts": []

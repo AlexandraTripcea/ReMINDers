@@ -1,9 +1,10 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subject} from 'rxjs';
 import {slider} from '../../../animations';
-import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {UserService} from '../../services/user.service';
-import {AuthService} from '../../services/auth.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {UserService} from '../../services/user/user.service';
+import {AuthService} from '../../services/auth/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -28,12 +29,12 @@ export class RegisterComponent implements OnInit, OnDestroy {
   genderOptions = ['Man', 'Woman', 'Other'];
   genderValues = ['M', 'W', 'O'];
   private userID = '';
-  private success = false;
+  succes = false;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private userService: UserService) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private userService: UserService, private router: Router) {
     this.destroy$ = new Subject<boolean>();
     this.registerForm = this.fb.group({
-        nickname: ['', Validators.required],
+        nickname: ['', [Validators.required, Validators.minLength(3)]],
         home: ['', Validators.required],
         gender: ['', Validators.required],
         sexualPref: ['', Validators.required],
@@ -41,8 +42,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
         question2: ['', Validators.required],
         question3: ['', Validators.required],
         question4: ['', Validators.required],
-        email: ['', Validators.required],
-        password: ['', Validators.required]
+        email: ['', [Validators.required, Validators.pattern('[^@ \\t\\r\\n]+@[^@ \\t\\r\\n]+\\.[^@ \\t\\r\\n]+')]],
+        password: ['', [Validators.required, Validators.minLength(8)]]
       }
     );
   }
@@ -55,32 +56,28 @@ export class RegisterComponent implements OnInit, OnDestroy {
     if (this.registerForm.invalid) {
       return;
     } else {
-      let loginUser = false;
-      let storeUser = false;
       this.submitted = true;
       Object.keys(this.registerForm.controls).forEach((key: string) => {
         if (key.startsWith('q') || key.startsWith('s') || key.startsWith('g')) {
           this.userID += this.registerForm.get(key).value[0];
         }
       });
+      let currentUser;
       await this.authService.registerNewUser({email: this.controls.email.value, password: this.controls.password.value})
-        .then(data => loginUser = true).catch(err => console.log('Registration failed'));
-      if (loginUser) {
-        await this.authService.signUserIn({email: this.controls.email.value, password: this.controls.password.value})
-          .then(data => storeUser = true)
-          .catch(err => console.log('Login failed'));
-        if (storeUser) {
-          let currentUser;
-          await this.authService.getLoginStatus().then(user => currentUser = user.uid);
-          await this.userService.storeToFirestoreAtDoc(currentUser, '/users', {
-            nickname: this.controls.nickname.value,
-            home: this.controls.home.value,
-            sexualPref: this.controls.sexualPref.value,
-            gender: this.controls.gender.value,
-            ID: this.userID,
-          }).then(() => this.success = true).catch(() => console.log('Store to Firebase failed'));
-        }
-      }
+        .then(registerData => currentUser = registerData.user.uid);
+      await this.userService.storeToFirestoreAtDoc(currentUser, '/users', {
+        nickname: this.controls.nickname.value,
+        home: this.controls.home.value,
+        sexualPref: this.controls.sexualPref.value,
+        gender: this.controls.gender.value,
+        ID: this.userID,
+      }).then(() => {
+        this.succes = true;
+        setTimeout(() => {
+            this.router.navigate(['login'], {queryParams: {registered: true}});
+          }
+          , 1500);
+      });
     }
   }
 
@@ -89,6 +86,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.destroy$.next();
-    this.destroy$.unsubscribe();
+    this.destroy$.complete();
   }
 }

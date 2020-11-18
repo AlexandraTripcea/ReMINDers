@@ -25,10 +25,10 @@ export const fader = trigger(
 export const slider = trigger('slider', [
   transition(':enter', [
     style({transform: 'translateX(-400%)', opacity: '0'}),
-    animate('400ms ease-in', style({transform: 'translateX(0%)', opacity: '1'}))
+    animate('600ms ease-out', style({transform: 'translateX(0%)', opacity: '1'}))
   ]),
   transition(':leave', [
-    animate('400ms ease-in', style({transform: 'translateX(+400%)', opacity: '0g'}))
+    animate('600ms ease-in', style({transform: 'translateX(+400%)', opacity: '0'}))
   ])
 ]);
 

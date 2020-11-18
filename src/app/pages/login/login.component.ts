@@ -1,7 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subject} from 'rxjs';
-import {AuthService} from '../../services/auth.service';
+import {AuthService} from '../../services/auth/auth.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   private error = false;
   submitted = false;
 
-  constructor(private auth: AuthService, private fb: FormBuilder) {
+  constructor(private auth: AuthService, private fb: FormBuilder, private route: ActivatedRoute, private router: Router) {
     this.destroy$ = new Subject<boolean>();
   }
 
@@ -25,6 +26,10 @@ export class LoginComponent implements OnInit, OnDestroy {
       password: ['', [Validators.required]],
       trappy: ['']
     });
+    if (this.auth.getLoginStatus()) {
+      // this.router.navigate(['/profile']);
+    }
+
   }
 
   get controls() {
@@ -40,12 +45,12 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.auth.signUserIn({
       email: this.controls.email.value,
       password: this.controls.password.value
-    }).then(data => this.succes = true).catch(data => this.error = true);
+    }).then(() => this.router.navigate(['profile'])).catch(() => this.error = true);
   }
 
   ngOnDestroy(): void {
     this.destroy$.next();
-    this.destroy$.unsubscribe();
+    this.destroy$.complete();
   }
 
 }

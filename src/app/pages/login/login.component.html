@@ -1,36 +1,36 @@
 <form [formGroup]="loginForm" (submit)="onSubmit()" class="container-fluid">
 
+
   <div class="contact-input-field">
-  <mat-form-field>
-    <mat-label>Email</mat-label>
-    <input  matInput type="text" id="email" name="email" formControlName="email">
-  </mat-form-field>
-  <div *ngIf="!controls.email?.valid && (controls.email?.dirty || controls.email?.touched)">
-    <div *ngIf="submitted && controls.email.errors.required">
-      <p class="alert-danger">I might need your contact mail</p>
+    <mat-form-field color="accent">
+      <mat-label>Email</mat-label>
+      <input matInput type="text" id="email" name="email" formControlName="email">
+    </mat-form-field>
+    <div *ngIf="!controls.email?.valid ">
+      <div *ngIf="submitted && controls.email.errors.required">
+        <p class="alert-danger">Please provide you email</p>
+      </div>
+      <div *ngIf="submitted && controls.email.errors.pattern">
+        <p class="alert-danger">We both know that's not an email</p>o
+      </div>
     </div>
-    <div *ngIf="submitted && controls.email.errors.pattern">
-      <p class="alert-danger">We both know that's not a mail</p>o
-    </div>
-  </div>
   </div>
 
   <div class="contact-input-field">
-  <mat-form-field>
-    <mat-label>Password</mat-label>
-    <input matInput type="password" id="password" name="password" formControlName="password">
-  </mat-form-field>
+    <mat-form-field>
+      <mat-label>Password</mat-label>
+      <input matInput type="password" id="password" name="password" formControlName="password">
+    </mat-form-field>
 
-  <div *ngIf="!controls.password?.valid && (controls.password?.dirty || controls.password?.touched)">
-    <div *ngIf="submitted && controls.password.errors.required">
-      <p class="alert-danger">Please do provide a password</p>
+    <div *ngIf="!controls.password?.valid">
+      <div *ngIf="submitted && controls.password.errors.required">
+        <p class="alert-danger">Please do provide a password</p>
+      </div>
     </div>
-  </div>
   </div>
 
   <input class="issatrap" type="text" id="trappy" name="trappy" formControlName="trappy">
 
 
-  <button mat-raised-button type="submit" class="contact-submit">Log in</button>
+  <button mat-raised-button type="submit" class="submit-button">Log in</button>
 </form>
-

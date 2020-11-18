@@ -13,6 +13,8 @@ import {NavbarComponent} from './components/navbar/navbar.component';
 import {MatUiModule} from './mat-ui.module';
 import {ProfileComponent} from './pages/profile/profile.component';
 import {MatcherComponent} from './pages/matcher/matcher.component';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {ErrorInterceptorService} from './services/error-interceptor/error-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -32,8 +34,11 @@ import {MatcherComponent} from './pages/matcher/matcher.component';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule.enablePersistence(),
     AppRoutingModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

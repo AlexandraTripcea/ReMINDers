@@ -1,48 +1,20 @@
 @import '~bootstrap';
-//@import "~@angular/material/prebuilt-themes/indigo-pink.css";
-// Custom Theming for Angular Material
-// For more information: https://material.angular.io/guide/theming
-@import '~@angular/material/theming';
-// Plus imports for other components in your app.
-// Include the common styles for Angular Material. We include this here so that you only
-// have to load a single css file for Angular Material in your app.
-// Be sure that you only ever include this mixin once!
-@include mat-core();
+@import 'mindmatch-theme.scss';
 
-// Define the palettes for your theme using the Material Design palettes available in palette.scss
-// (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// hue. Available color palettes: https://material.io/design/color/
-$ReMINDers-primary: mat-palette($mat-indigo);
-$ReMINDers-accent: mat-palette($mat-pink, A200, A100, A400);
+html, body {
+  height: 100%;
+}
 
-// The warn palette is optional (defaults to red).
-$ReMINDers-warn: mat-palette($mat-red);
+body {
+  margin: 0;
+}
 
-// Create the theme object. A theme consists of configurations for individual
-// theming systems such as "color" or "typography".
-$ReMINDers-theme: mat-light-theme((
-  color: (
-    primary: $ReMINDers-primary,
-    accent: $ReMINDers-accent,
-    warn: $ReMINDers-warn,
-  )
-));
-
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
-@include angular-material-theme($ReMINDers-theme);
-
-/* You can add global styles to this file, and also import other style files */
-
-html, body { height: 100%; }
-body { margin: 0; }
-
-.mindmatch-font{
+.mindmatch-font {
   font-family: Roboto;
   letter-spacing: 0.5px;
 }
-.mindmatch-title{
+
+.mindmatch-title {
   font-family: Roboto;
   letter-spacing: 1px;
 
@@ -54,34 +26,34 @@ body { margin: 0; }
 }
 
 @media only screen and (max-width: 767px) {
-  .mindmatch-font{
-    font-size:17px;
+  .mindmatch-font {
+    font-size: 17px;
   }
-  .icon{
+  .icon {
     font-size: 30px;
   }
-  .mindmatch-title{
+  .mindmatch-title {
     font-size: 22px;
   }
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1439px) {
 
-  .icon{
+  .icon {
     font-size: 45px;
   }
-  .mindmatch-title{
+  .mindmatch-title {
     font-size: 22px;
   }
 }
 
 @media only screen and (min-width: 1440px) and (max-width: 2158px) {
 
-  .icon{
-    font-size:45px;
+  .icon {
+    font-size: 45px;
   }
-  .mindmatch-title{
-    font-size:22px;
+  .mindmatch-title {
+    font-size: 22px;
   }
 }
 
@@ -89,11 +61,11 @@ body { margin: 0; }
   .mindmatch-font {
     font-size: 36px; //xx-large
   }
-  .icon{
-    font-size:75px;
+  .icon {
+    font-size: 75px;
   }
-  .mindmatch-title{
-    font-size:45px;
+  .mindmatch-title {
+    font-size: 45px;
   }
 }
 
@@ -101,10 +73,10 @@ body { margin: 0; }
   .mindmatch-font {
     font-size: 54px; //gargantuan
   }
-  .icon{
-    font-size:110px;
+  .icon {
+    font-size: 110px;
   }
-  .mindmatch-title{
-    font-size:75px;
+  .mindmatch-title {
+    font-size: 75px;
   }
 }

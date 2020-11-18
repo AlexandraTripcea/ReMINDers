@@ -95,9 +95,9 @@
   <div class="user-pass-form" *ngIf="showUserPass">
     <mat-form-field>
       <mat-label>Email</mat-label>
-      <input  matInput type="text" id="email" name="email" formControlName="email">
+      <input matInput type="text" id="email" name="email" formControlName="email">
     </mat-form-field>
-    <div *ngIf="!controls.email?.valid && (controls.email?.dirty || controls.email?.touched)">
+    <div *ngIf="!controls.email?.valid">
       <div *ngIf="submitted && controls.email.errors.required">
         <p class="alert-danger">Please provide your email</p>
       </div>
@@ -107,11 +107,26 @@
       <mat-label>Password</mat-label>
       <input matInput type="password" id="password" name="password" formControlName="password">
     </mat-form-field>
-    <div *ngIf="!controls.password?.valid && (controls.password?.dirty || controls.password?.touched)">
+    <div *ngIf="!controls.password?.valid">
       <div *ngIf="submitted && controls.password.errors.required">
         <p class="alert-danger">Please do provide a password</p>
       </div>
-  </div>
-    <button type="submit" mat-raised-button class="submit-button"> Submit and start MindMatching!</button>
+      <div *ngIf="submitted && controls.password.errors.minLength">
+        <p class="alert-danger">Password needs to be at least 8 characters long</p>
+      </div>
+    </div>
+    <button data-toggle="modal" data-target="#registeredSuccesfully" type="submit" mat-raised-button class="submit-button">
+      Submit and start MindMatching!
+    </button>
   </div>
 </form>
+
+<div class="modal fade" id="registeredSuccesfully" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">You have been registered succesfully and will be redirected!</h5>
+      </div>
+    </div>
+  </div>
+</div>
