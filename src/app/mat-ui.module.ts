@@ -24,6 +24,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     BrowserAnimationsModule,
     MatCardModule,
     MatExpansionModule,
+    MatCardModule,
     MatTabsModule,
   ],
   exports: [
@@ -36,6 +37,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatTabsModule,
     MatCardModule,
     MatTabsModule,
+    MatCardModule,
     MatExpansionModule,
   ]
 })

@@ -31,7 +31,7 @@
   <div [@slider] class="contact-input-field mindmatch-title" *ngIf="showGender">
     <mat-label>You are a..</mat-label>
     <mat-radio-group class="radio-container" formControlName="gender">
-      <mat-radio-button [value]="genderValues[idx]" *ngFor="let gender of genderOptions; index as idx">
+      <mat-radio-button [value]="gender" *ngFor="let gender of genderOptions">
         {{gender}}
       </mat-radio-button>
     </mat-radio-group>
@@ -45,7 +45,7 @@
   <div [@slider] class="contact-input-field mindmatch-title" *ngIf="showSexualPref">
     <mat-label>You are interested in..</mat-label>
     <mat-radio-group class="radio-container" formControlName="sexualPref">
-      <mat-radio-button [value]="sexualPrefValues[idx]" *ngFor="let pref of sexualPrefOptions;index as idx">
+      <mat-radio-button [value]="genderOptions[idx]" *ngFor="let pref of sexualPrefOptions;index as idx">
         {{pref}}
       </mat-radio-button>
     </mat-radio-group>

@@ -24,10 +24,9 @@ export class RegisterComponent implements OnInit, OnDestroy {
   showWelcome = true;
   showUserPass = false;
   sexualPrefOptions = ['Men', 'Women', 'Both'];
-  sexualPrefValues = ['M', 'W', 'B'];
+  sexualPrefValue = ['Man', 'Woman', 'Both'];
   question1Options = ['A', 'B', 'C'];
   genderOptions = ['Man', 'Woman', 'Other'];
-  genderValues = ['M', 'W', 'O'];
   private userID = '';
   succes = false;
 
@@ -58,8 +57,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
     } else {
       this.submitted = true;
       Object.keys(this.registerForm.controls).forEach((key: string) => {
-        if (key.startsWith('q') || key.startsWith('s') || key.startsWith('g')) {
-          this.userID += this.registerForm.get(key).value[0];
+        if (key.startsWith('q')) {
+          this.userID += this.registerForm.get(key).value;
         }
       });
       let currentUser;
@@ -70,6 +69,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
         home: this.controls.home.value,
         sexualPref: this.controls.sexualPref.value,
         gender: this.controls.gender.value,
+        email: this.controls.email.value,
         ID: this.userID,
       }).then(() => {
         this.succes = true;

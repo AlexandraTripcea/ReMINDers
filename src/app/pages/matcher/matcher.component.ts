@@ -15,21 +15,29 @@ export class MatcherComponent implements OnInit, OnDestroy {
   private currentUser: any;
   matchedUsers = [];
   private destroy$: Subject<boolean>;
+  spinnerDissapears = false;
 
   /*TODO:
     -fix interceptor for login fail
     -make dialog component
-    -localStorage -> sessionStorage
     -matcher
+    -route guard
+    -password validators
    */
   constructor(private userService: UserService, private auth: AuthService) {
     this.destroy$ = new Subject<boolean>();
   }
 
   async ngOnInit(): Promise<void> {
-    this.userService.getFromFirestore(this.path).pipe(takeUntil(this.destroy$)).subscribe(list => this.users = list);
-    await this.userService.getMatchedUsers().then(matches => this.matchedUsers = matches);
-    console.log(this.matchedUsers);
+    this.currentUser = await this.userService.getCurrentlyLoggedInUserInfo();
+    await this.userService.getMatchedUsers().then(matches => {
+      this.matchedUsers = matches;
+      this.spinnerDissapears = true;
+    });
+  }
+
+  get userSexualPref(): string {
+    return this.currentUser.sexualPref;
   }
 
   ngOnDestroy(): void {

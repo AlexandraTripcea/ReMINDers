@@ -5,12 +5,23 @@ html, body {
   height: 100%;
 }
 
+
+
 body {
   margin: 0;
 }
 
+a {
+  text-decoration: none !important;
+}
+
+a:hover {
+  color: white;
+}
+
 .mindmatch-font {
   font-family: Roboto;
+  color:white;
   letter-spacing: 0.5px;
 }
 

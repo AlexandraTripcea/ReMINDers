@@ -6,12 +6,12 @@ $mindmatch-primary: (
   100:#ffb098,
   200:#d3806a,
   contrast:(
-    300: #9f523f
+    300: #8C4A3A
   )
 );
 
-$ReMINDers-primary: mat-palette($mindmatch-primary,100);
-$ReMINDers-accent: mat-palette($mat-blue-grey, 300, 50);
+$ReMINDers-primary: mat-palette($mindmatch-primary, 100);
+$ReMINDers-accent: mat-palette($mat-blue-grey,300, 100, 50);
 
 $ReMINDers-warn: mat-palette($mat-red);
 

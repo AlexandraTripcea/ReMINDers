@@ -13,13 +13,10 @@ export class AuthService implements OnDestroy {
 
   constructor(private auth: AngularFireAuth, private userService: UserService) {
     this.destroy$ = new Subject<boolean>();
-    this.auth.onAuthStateChanged(user => this.userService
-      .getUserFromFirestore(user.uid)
-      .subscribe((data) => {
-        localStorage.setItem('loggedInUser', JSON.stringify(
-          {ID: data.ID, gender: data.gender, home: data.home, nickname: data.nickname, sexualPref: data.sexualPref}));
-        this.loggedIn = true;
-      }));
+    this.auth.onAuthStateChanged(user => {
+      localStorage.setItem('loggedInUser', JSON.stringify({uid: user.uid}));
+      this.loggedIn = true;
+    });
   }
 
   signUserIn(credentials: any): Promise<any> {

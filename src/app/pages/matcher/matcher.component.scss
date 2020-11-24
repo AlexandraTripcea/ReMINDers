@@ -1,3 +1,25 @@
-.col {
-  height: 50%;
+@import '../../../mindmatch-theme.scss';
+
+.container-fluid{
+  display: flex;
+  justify-content: center;
+  flex-flow: column;
+}
+
+.card-header{
+  color:mat-contrast($ReMINDers-primary,300);
+  background-color:mat-color($ReMINDers-accent,50);
+}
+
+.match-card{
+  width:50%;
+  background-color:mat-color($ReMINDers-primary,100);
+  align-self: center;
+}
+
+mat-card-actions{
+  display: flex;
+  justify-content: center;
+  >button{
+  }
 }

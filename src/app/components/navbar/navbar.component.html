@@ -1,1 +1,7 @@
-<p>navbar works!</p>
+<nav id="nav" class="navbar navbar-expand">
+  <div class="navbar-nav">
+    <div class="nav-item mindmatch-font mr-2" *ngFor="let option of navbarOptions">
+      <a href="{{option.path}}">{{option.name}}</a>
+    </div>
+  </div>
+</nav>

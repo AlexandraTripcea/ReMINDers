@@ -1,6 +1,7 @@
 import {Injectable, OnDestroy} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {Observable, Subject} from 'rxjs';
+import {closeCalendar} from '@angular/material/datepicker/testing/datepicker-trigger-harness-base';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class UserService implements OnDestroy {
   }
 
   getUserFromFirestore(docId: any): Observable<any> {
-    return this.firestore.collection('users').doc(docId).valueChanges();
+    return this.firestore.collection('users').doc(docId).get();
   }
 
 
@@ -35,7 +36,7 @@ export class UserService implements OnDestroy {
           hammingDistanceCount++;
         }
       }
-      if (hammingDistanceCount / user.ID.length > 0.75) {
+      if (hammingDistanceCount / user.ID.length >= 0.5) {
         matchedUsers.push(user);
         hammingDistanceCount = 0;
       }
@@ -45,12 +46,35 @@ export class UserService implements OnDestroy {
 
   async getMatchedUsers(): Promise<any> {
     const rightGenderUsers = [];
-    const currentUser = JSON.parse(localStorage.getItem('loggedInUser'));
-    await this.firestore.collection('users').ref
-      .where('gender', '==', `${currentUser.sexualPref}`)
-      .limit(100).get().then(data => data
-        .forEach((user) => rightGenderUsers.push(user.data())));
+    const currentUser = await this.getCurrentlyLoggedInUserInfo();
+    if (currentUser.sexualPref !== 'Both') {
+      await this.firestore.collection('users').ref
+        .where('gender', '==', `${currentUser.sexualPref}`)
+        .limit(100).get().then(data => data
+          .forEach((newUser) => {
+            if (newUser.data().email !== currentUser.email) {
+              rightGenderUsers.push(newUser.data());
+            }
+          }));
+    } else {
+      await this.firestore.collection('users').ref
+        .limit(100).get().then(data => data
+          .forEach((newUser) => {
+            if (newUser.data().email !== currentUser.email) {
+              rightGenderUsers.push(newUser.data());
+            }
+          }));
+    }
     return this.matchUsers(rightGenderUsers, currentUser.ID);
+  }
+
+  async getCurrentlyLoggedInUserInfo(): Promise<any> {
+    let currentUser: any;
+    await this.getUserFromFirestore(JSON.parse(localStorage.getItem('loggedInUser')).uid).toPromise()
+      .then(user => {
+        currentUser = user.data();
+      });
+    return currentUser;
   }
 
   ngOnDestroy(): void {

@@ -1,4 +1,17 @@
-<p>matcher works!</p>
-<div *ngFor="let user of users">
-  {{user.nickname}}
-</div>
+ <app-spinner *ngIf="!spinnerDissapears"></app-spinner>
+  <div class="container-fluid" *ngIf="spinnerDissapears">
+    <mat-card *ngFor="let user of matchedUsers" class=" match-card m-4">
+      <mat-card-header class="card-header">
+        <mat-card-title>{{user.nickname}}</mat-card-title>
+        <mat-card-subtitle>{{user.home}}</mat-card-subtitle>
+        <mat-card-subtitle *ngIf="userSexualPref==='Both'">{{user.gender}}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content class="mindmatch-font">
+        {{user.bio}}
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button>MindMatch</button>
+        <button mat-button>Next</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>

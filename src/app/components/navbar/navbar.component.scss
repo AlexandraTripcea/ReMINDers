@@ -1,0 +1,11 @@
+@import '../../../mindmatch-theme.scss';
+
+.navbar {
+  background-color: mat-color($ReMINDers-primary, 200);
+}
+
+.nav-item {
+  > a {
+    color: white;
+  }
+}

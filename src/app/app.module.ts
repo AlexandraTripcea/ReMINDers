@@ -15,6 +15,7 @@ import {ProfileComponent} from './pages/profile/profile.component';
 import {MatcherComponent} from './pages/matcher/matcher.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {ErrorInterceptorService} from './services/error-interceptor/error-interceptor.service';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import {ErrorInterceptorService} from './services/error-interceptor/error-interc
     HomepageComponent,
     NavbarComponent,
     ProfileComponent,
-    MatcherComponent
+    MatcherComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,
