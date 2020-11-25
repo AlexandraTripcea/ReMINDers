@@ -9,13 +9,13 @@ import {Subject} from 'rxjs';
 export class AuthService implements OnDestroy {
 
   private destroy$: Subject<boolean>;
-  private loggedIn = false;
+  private loggedInId = '';
 
-  constructor(private auth: AngularFireAuth, private userService: UserService) {
+  constructor(private auth: AngularFireAuth) {
     this.destroy$ = new Subject<boolean>();
     this.auth.onAuthStateChanged(user => {
       localStorage.setItem('loggedInUser', JSON.stringify({uid: user.uid}));
-      this.loggedIn = true;
+      this.loggedInId = user.uid;
     });
   }
 
@@ -24,11 +24,16 @@ export class AuthService implements OnDestroy {
   }
 
   getLoginStatus(): any {
-    return this.loggedIn;
+    return !!localStorage.getItem('loggedInUser');
+  }
+
+  getLoginId(): string {
+    return JSON.parse(localStorage.getItem('loggedInUser')).uid;
   }
 
   signUserOut(): Promise<any> {
     localStorage.clear();
+    this.loggedInId = '';
     return this.auth.signOut();
   }
 

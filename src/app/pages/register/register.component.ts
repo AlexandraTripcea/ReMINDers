@@ -30,7 +30,9 @@ export class RegisterComponent implements OnInit, OnDestroy {
   private userID = '';
   succes = false;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private userService: UserService, private router: Router) {
+  constructor(private fb: FormBuilder,
+              private authService: AuthService,
+              private userService: UserService, private router: Router) {
     this.destroy$ = new Subject<boolean>();
     this.registerForm = this.fb.group({
         nickname: ['', [Validators.required, Validators.minLength(3)]],
@@ -71,6 +73,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
         gender: this.controls.gender.value,
         email: this.controls.email.value,
         ID: this.userID,
+        matches: ''
       }).then(() => {
         this.succes = true;
         setTimeout(() => {

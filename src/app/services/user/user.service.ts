@@ -1,7 +1,9 @@
 import {Injectable, OnDestroy} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {Observable, Subject} from 'rxjs';
-import {closeCalendar} from '@angular/material/datepicker/testing/datepicker-trigger-harness-base';
+import {AuthService} from '../auth/auth.service';
+import firebase from 'firebase';
+import FieldValue = firebase.firestore.FieldValue;
 
 @Injectable({
   providedIn: 'root'
@@ -9,9 +11,15 @@ import {closeCalendar} from '@angular/material/datepicker/testing/datepicker-tri
 export class UserService implements OnDestroy {
   private destroy$: Subject<boolean>;
 
-  constructor(private firestore: AngularFirestore) {
+  constructor(private firestore: AngularFirestore, private auth: AuthService) {
     this.destroy$ = new Subject<boolean>();
 
+  }
+
+  addUserMatch(newUserMatch: string): Promise<void> {
+    return this.firestore.collection('users')
+      .doc(this.auth.getLoginId())
+      .update({matches: FieldValue.arrayUnion(newUserMatch)});
   }
 
   getFromFirestore(path: string): Observable<any> {

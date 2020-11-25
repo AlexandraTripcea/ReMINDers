@@ -18,11 +18,16 @@ export class MatcherComponent implements OnInit, OnDestroy {
   spinnerDissapears = false;
 
   /*TODO:
-    -fix interceptor for login fail
     -make dialog component
-    -matcher
-    -route guard
+    -popups
+    -matcher UI reacts to matches
+    -register animations
     -password validators
+    -check wtf is jwt
+    -profile (setting/editing, seeing other people, additional info)
+    -drawer/sidebar
+    -questions
+    -chat
    */
   constructor(private userService: UserService, private auth: AuthService) {
     this.destroy$ = new Subject<boolean>();
@@ -38,6 +43,10 @@ export class MatcherComponent implements OnInit, OnDestroy {
 
   get userSexualPref(): string {
     return this.currentUser.sexualPref;
+  }
+
+  matchUser(userEmail: string): void {
+    this.userService.addUserMatch(userEmail);
   }
 
   ngOnDestroy(): void {

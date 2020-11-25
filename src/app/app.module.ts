@@ -13,9 +13,8 @@ import {NavbarComponent} from './components/navbar/navbar.component';
 import {MatUiModule} from './mat-ui.module';
 import {ProfileComponent} from './pages/profile/profile.component';
 import {MatcherComponent} from './pages/matcher/matcher.component';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {ErrorInterceptorService} from './services/error-interceptor/error-interceptor.service';
-import { SpinnerComponent } from './components/spinner/spinner.component';
+import {SpinnerComponent} from './components/spinner/spinner.component';
+import {AuthGuard} from './services/auth/auth.guard';
 
 @NgModule({
   declarations: [
@@ -36,11 +35,8 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule.enablePersistence(),
     AppRoutingModule,
-    HttpClientModule
-  ],
-  providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true }
-  ],
+   ],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {
