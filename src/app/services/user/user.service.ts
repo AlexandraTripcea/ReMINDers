@@ -92,6 +92,10 @@ export class UserService implements OnDestroy {
     return currentUser;
   }
 
+  getUserWithNickname(val): Observable<any> {
+    return this.firestore.collection('/users', ref => ref.where('nickname', '==', val)).valueChanges();
+  }
+
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();

@@ -1,0 +1,43 @@
+<div class="container mt-2">
+  <div class="row">
+
+    <div class="col">
+      <div class="row picture">Picture</div>
+      <div class="row description">
+        Diverse hobbies
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="row name">
+        <h1>
+        <span>{{userData?.nickname}}</span>
+        </h1>
+      </div>
+
+      <div class="row infos">
+        <mat-tab-group>
+          <mat-tab label="Infos">
+            <div>
+              <div>
+                <mat-card>
+                  <mat-card-subtitle>Gender</mat-card-subtitle>
+                  <span>{{userData?.gender}}</span>
+                </mat-card>
+                <mat-card>
+                  <mat-card-subtitle>Home</mat-card-subtitle>
+                  <span>{{userData?.home}}</span>
+                </mat-card>
+                <mat-card>
+                  <mat-card-subtitle>Sexual Pref</mat-card-subtitle>
+                  <span>{{userData?.sexualPref}}</span>
+                </mat-card>
+              </div>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+    </div>
+  </div>
+
+</div>

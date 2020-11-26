@@ -15,6 +15,7 @@ import {ProfileComponent} from './pages/profile/profile.component';
 import {MatcherComponent} from './pages/matcher/matcher.component';
 import {SpinnerComponent} from './components/spinner/spinner.component';
 import {AuthGuard} from './services/auth/auth.guard';
+import { UserprofileComponent } from './pages/userprofile/userprofile.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import {AuthGuard} from './services/auth/auth.guard';
     NavbarComponent,
     ProfileComponent,
     MatcherComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    UserprofileComponent
   ],
   imports: [
     BrowserModule,

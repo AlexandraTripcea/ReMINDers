@@ -2,7 +2,7 @@
   <div class="container-fluid" *ngIf="spinnerDissapears">
     <mat-card *ngFor="let user of matchedUsers" class=" match-card m-4">
       <mat-card-header class="card-header">
-        <mat-card-title>{{user.nickname}}</mat-card-title>
+        <mat-card-title [routerLink]="['/userprofile', user.nickname]">{{user.nickname}}</mat-card-title>
         <mat-card-subtitle>{{user.home}}</mat-card-subtitle>
         <mat-card-subtitle *ngIf="userSexualPref==='Both'">{{user.gender}}</mat-card-subtitle>
       </mat-card-header>
