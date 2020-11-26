@@ -35,6 +35,13 @@ export class UserService implements OnDestroy {
     return this.firestore.collection(path).doc(docId).set(docData);
   }
 
+  updateProfileData(docId: any, path: string, docData: any): Promise<any> {
+    return this.firestore.collection(path)
+      .doc(docId)
+      .update({nickname: docData.nickname, home: docData.home, sexualPref: docData.sexualPref, gender: docData.gender})
+      .catch(error => console.log(error));
+  }
+
   private matchUsers(allUsers: any, idToMatch: string): any {
     let hammingDistanceCount = 0;
     const matchedUsers = [];

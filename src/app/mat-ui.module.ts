@@ -9,7 +9,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatCardModule} from '@angular/material/card';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatTabsModule} from '@angular/material/tabs';
-import {MatDialogModule} from '@angular/material/dialog';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -26,6 +26,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatExpansionModule,
     MatCardModule,
     MatTabsModule,
+    MatIconModule,
   ],
   exports: [
     MatButtonModule,

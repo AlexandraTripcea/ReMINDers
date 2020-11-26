@@ -1,5 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subject} from 'rxjs';
+import {UserService} from '../../services/user/user.service';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {Router} from '@angular/router';
+import {AuthService} from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -8,14 +12,89 @@ import {Subject} from 'rxjs';
 })
 export class ProfileComponent implements OnInit, OnDestroy {
   private destroy$: Subject<boolean>;
+  public currentUser: any;
+  profileForm: FormGroup;
+  editable = true;
+  matchedUsers = [];
 
-  constructor() {
+  constructor(private userService: UserService, private fb: FormBuilder, private router: Router, private authService: AuthService) {
     this.destroy$ = new Subject<boolean>();
 
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    this.profileForm = this.fb.group({
+      nickname: [''],
+      gender: [''],
+      home: [''],
+      sexualPref: [''],
+    });
+    this.currentUser = await this.userService.getCurrentlyLoggedInUserInfo();
+    await this.userService.getMatchedUsers().then(matches => {
+      this.matchedUsers = matches;
+    });
+    this.updateForm();
   }
+
+  updateForm(): void {
+    this.profileForm = this.fb.group({
+      nickname: this.currentUser.nickname,
+      gender: this.currentUser.gender,
+      home: this.currentUser.home,
+      sexualPref: this.currentUser.sexualPref,
+    });
+  }
+
+  disableForm(): void {
+    this.profileForm.disable();
+  }
+
+  onSubmit(): void {
+    this.profileForm = this.fb.group({
+      nickname: this.profileForm.value.nickname,
+      gender: this.profileForm.value.gender,
+      home: this.profileForm.value.home,
+      sexualPref: this.profileForm.value.sexualPref,
+    });
+  }
+
+  async saveProfileData(): Promise<void> {
+    // console.log('FORM GROUP DATA');
+    // console.log(this.profileForm.value.nickname);
+    // console.log(this.profileForm.value.home);
+    // console.log(this.profileForm.value.sexualPref);
+    // console.log(this.profileForm.value.gender);
+    // console.log('----------');
+    if (this.editable) {
+      await this.userService.updateProfileData(this.authService.getLoginId(), '/users', {
+        nickname: this.profileForm.value.nickname,
+        home: this.profileForm.value.home,
+        sexualPref: this.profileForm.value.sexualPref,
+        gender: this.profileForm.value.gender,
+      });
+      this.editable = false;
+      this.disableForm();
+    } else {
+      this.editable = true;
+    }
+  }
+
+  getColorEdit(): string {
+    if (this.editable) {
+      return 'primary';
+    } else {
+      return 'false';
+    }
+  }
+
+  isDisabled(): string {
+    if (this.editable) {
+      return 'false';
+    } else {
+      return 'true';
+    }
+  }
+
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();

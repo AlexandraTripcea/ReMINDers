@@ -1,46 +1,70 @@
 <div class="container mt-2">
+  <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+    <div class="row">
 
-  <div class="row">
-
-    <div class="col">
-      <div class="row picture">Picture</div>
-      <div class="row description">Surfing
-        Yoga
-        Skiing
-        Golf
-        Biking
-        Hiking
-        Running</div>
-    </div>
-
-    <div class="col">
-      <div class="row name">
-        Name
+      <div class="col">
+        <div class="row picture">Picture</div>
+        <div class="row description">
+          Yoga
+          Skiing
+          Golf
+          Biking
+          Hiking
+          Running
+        </div>
       </div>
-      <div class="row infos">
-        <mat-tab-group>
-          <!-- #enddocregion dynamic-height -->
-          <mat-tab label="Matches">
-            <div class="example-large-box">
-              Large content
-            </div>
-          </mat-tab>
-          <mat-tab label="Infos">
-            <div class="example-large-box">
-              Hassabis was born to a Greek Cypriot father and a Chinese Singaporean mother and grew up in North London.[8][16] A child prodigy in chess,[17] Hassabis reached master standard at the age of 13 with an Elo rating of 2300 and captained many of the England junior chess teams.[18] He represented the University of Cambridge in the Oxford-Cambridge varsity chess matches of 1995,[19] 1996[20] and 1997,[21] winning a half blue.
 
-              Hassabis was educated at Christ's College, Finchley,[8] a state-funded comprehensive school in East Finchley, North London. He completed his GCE Advanced Level and Scholarship Level exams early at the age of 15 and 16.
+      <div class="col">
+        <div class="row name">
+          <mat-form-field>
+            <input matInput id="nickname" name="nickname" formControlName="nickname" type="text">
+          </mat-form-field>
+          <button mat-mini-fab [color]="getColorEdit()" (click)="saveProfileData()" type="submit">
+            <span class="material-icons">
+            edit
+            </span>
+          </button>
+        </div>
 
-              Bullfrog
-              Hassabis began his computer games career at Bullfrog Productions, first level designing on Syndicate and then at 17 co-designing and lead programming on the 1994 game Theme Park, with the games designer Peter Molyneux. Theme Park, a simulation video game, sold over ten million copies and won a Golden Joystick Award,[citation needed] and inspired a whole genre of management sim games.
+        <div class="row infos">
+          <mat-tab-group>
 
-              University of Cambridge
-              Hassabis then left Bullfrog to study at Queens' College, Cambridge, where he completed the Computer Science Tripos graduating in 1997 with a Double First[18] from the University of Cambridge.[13]
-            </div>
-          </mat-tab>
-        </mat-tab-group>
+            <mat-tab label="Matches">
+              <div class="example-large-box">
+                <mat-card *ngFor="let user of matchedUsers" class=" match-card m-4">
+                  <mat-card-header class="card-header">
+                    <mat-card-title>{{user.nickname}}</mat-card-title>
+                    <mat-card-subtitle>{{user.home}}</mat-card-subtitle>
+                  </mat-card-header>
+                  <mat-card-content class="mindmatch-font">
+                    {{user.bio}}
+                  </mat-card-content>
+                </mat-card>
+              </div>
+            </mat-tab>
+
+            <mat-tab label="Infos">
+              <div>
+                <div>
+                  <mat-form-field>
+                    <mat-label>Gender</mat-label>
+                    <input matInput id="gender" name="gender" formControlName="gender" type="text">
+                  </mat-form-field>
+                  <mat-form-field>
+                    <mat-label>Home</mat-label>
+                    <input matInput id="home" name="home" formControlName="home" type="text">
+                  </mat-form-field>
+                  <mat-form-field>
+                    <mat-label>Sexual Pref</mat-label>
+                    <input matInput id="sexualPref" name="sexualPref" formControlName="sexualPref" type="text">
+                  </mat-form-field>
+                </div>
+              </div>
+            </mat-tab>
+          </mat-tab-group>
+        </div>
       </div>
     </div>
+  </form>
 
-  </div>
 </div>
