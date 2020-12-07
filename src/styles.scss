@@ -19,6 +19,12 @@ a:hover {
   color: white;
 }
 
+.warning{
+  color:mat-color($ReMINDers-warn);
+  font-family: Arial;
+}
+
+
 .mindmatch-font {
   font-family: Roboto;
   color:white;
@@ -28,7 +34,7 @@ a:hover {
 .mindmatch-title {
   font-family: Roboto;
   letter-spacing: 1px;
-
+  color:black;
 }
 
 .submit-button {
@@ -39,6 +45,9 @@ a:hover {
 @media only screen and (max-width: 767px) {
   .mindmatch-font {
     font-size: 17px;
+  }
+   .warning {
+    font-size: 14px;
   }
   .icon {
     font-size: 30px;
@@ -72,6 +81,9 @@ a:hover {
   .mindmatch-font {
     font-size: 36px; //xx-large
   }
+  .warning {
+    font-size: 30px; //xx-large
+  }
   .icon {
     font-size: 75px;
   }
@@ -83,6 +95,9 @@ a:hover {
 @media only screen and (min-width: 3839px) {
   .mindmatch-font {
     font-size: 54px; //gargantuan
+  }
+  .warning {
+    font-size: 46px; //gargantuan
   }
   .icon {
     font-size: 110px;

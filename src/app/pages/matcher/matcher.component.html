@@ -1,17 +1,25 @@
- <app-spinner *ngIf="!spinnerDissapears"></app-spinner>
-  <div class="container-fluid" *ngIf="spinnerDissapears">
-    <mat-card *ngFor="let user of matchedUsers" class=" match-card m-4">
+<app-spinner *ngIf="!spinnerDissapears">
+</app-spinner>
+<div class="container-fluid" *ngIf="spinnerDissapears && matchedUserCounter !== matchedUsers.length">
+  <ng-template ngFor let-user [ngForOf]="[currentMatchedUser]">
+    <mat-card id="#matchCard" [@sliderNpopper]="animationState" class="match-card m-4">
       <mat-card-header class="card-header">
-        <mat-card-title [routerLink]="['/userprofile', user.nickname]">{{user.nickname}}</mat-card-title>
-        <mat-card-subtitle>{{user.home}}</mat-card-subtitle>
-        <mat-card-subtitle *ngIf="userSexualPref==='Both'">{{user.gender}}</mat-card-subtitle>
+        <mat-card-title
+          [routerLink]="['/userprofile', currentMatchedUser.nickname]">{{currentMatchedUser.nickname}}</mat-card-title>
+        <mat-card-subtitle>{{currentMatchedUser.home}}</mat-card-subtitle>
+        <mat-card-subtitle *ngIf="userSexualPref==='Both'">{{currentMatchedUser.gender}}</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content class="mindmatch-font">
-        {{user.bio}}
+        {{currentMatchedUser.bio}}
       </mat-card-content>
       <mat-card-actions>
-        <button mat-button (click) = matchUser(user.email)>MindMatch</button>
-        <button mat-button>Next</button>
+        <button mat-button (click)="resetAnimation('slider');matchUser(currentMatchedUser.email);getNextUser()">MindMatch</button>
+        <button mat-button (click)="resetAnimation('pop');rejectUser(currentMatchedUser.email);getNextUser()">Nah</button>
       </mat-card-actions>
     </mat-card>
-  </div>
+  </ng-template>
+</div>
+
+<div [@fader] *ngIf="spinnerDissapears && matchedUserCounter === matchedUsers.length" class="match-card">
+  <p class="mindmatch-title">You've ran out of potential MindMatches, but refresh later!</p>
+</div>

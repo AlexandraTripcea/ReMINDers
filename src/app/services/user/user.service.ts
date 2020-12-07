@@ -2,7 +2,7 @@ import {Injectable, OnDestroy} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {Observable, Subject} from 'rxjs';
 import {AuthService} from '../auth/auth.service';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 import FieldValue = firebase.firestore.FieldValue;
 
 @Injectable({
@@ -22,6 +22,12 @@ export class UserService implements OnDestroy {
       .update({matches: FieldValue.arrayUnion(newUserMatch)});
   }
 
+  addUserReject(newUserReject: string): Promise<void> {
+    return this.firestore.collection('users')
+      .doc(this.auth.getLoginId())
+      .update({rejects: FieldValue.arrayUnion(newUserReject)});
+  }
+
   getFromFirestore(path: string): Observable<any> {
     return this.firestore.collection(path).valueChanges();
   }
@@ -29,7 +35,6 @@ export class UserService implements OnDestroy {
   getUserFromFirestore(docId: any): Observable<any> {
     return this.firestore.collection('users').doc(docId).get();
   }
-
 
   storeToFirestoreAtDoc(docId: any, path: string, docData: any): Promise<any> {
     return this.firestore.collection(path).doc(docId).set(docData);
@@ -62,24 +67,40 @@ export class UserService implements OnDestroy {
   async getMatchedUsers(): Promise<any> {
     const rightGenderUsers = [];
     const currentUser = await this.getCurrentlyLoggedInUserInfo();
+    let rejectedUsers = [];
+    let alreadyMatchedUsers = [];
+    await this.firestore.collection('users')
+      .doc(this.auth.getLoginId())
+      .get()
+      .toPromise<any>().then(data => rejectedUsers = data.data().rejects);
+    await this.firestore.collection('users')
+      .doc(this.auth.getLoginId())
+      .get()
+      .toPromise<any>().then(data => alreadyMatchedUsers = data.data().matches);
     if (currentUser.sexualPref !== 'Both') {
       await this.firestore.collection('users').ref
         .where('gender', '==', `${currentUser.sexualPref}`)
-        .limit(100).get().then(data => data
+        .limit(50).get().then((data: any) => data
           .forEach((newUser) => {
-            if (newUser.data().email !== currentUser.email) {
+            if (newUser.data().email !== currentUser.email
+              && alreadyMatchedUsers.indexOf(newUser.data().email) === -1
+              && rejectedUsers.indexOf(newUser.data().email) === -1) {
               rightGenderUsers.push(newUser.data());
             }
           }));
     } else {
       await this.firestore.collection('users').ref
-        .limit(100).get().then(data => data
+        .limit(100).get().then((data: any) => data
           .forEach((newUser) => {
-            if (newUser.data().email !== currentUser.email) {
+            if (newUser.data().email !== currentUser.email
+              && alreadyMatchedUsers.indexOf(newUser.data().email) === -1
+              && rejectedUsers.indexOf(newUser.data().email) === -1) {
               rightGenderUsers.push(newUser.data());
             }
           }));
     }
+
+
     return this.matchUsers(rightGenderUsers, currentUser.ID);
   }
 

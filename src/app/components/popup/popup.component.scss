@@ -1,0 +1,25 @@
+@import "../../../mindmatch-theme";
+
+.modal-dialog {
+  top: 40%;
+  bottom: 50%;
+}
+
+.modal-content {
+  display: flex;
+  background-color: mat-color($ReMINDers-primary, 200);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: center;
+}
+
+.modal-footer {
+  height: 10%;
+  background-color: mat-color($ReMINDers-primary, 100);
+  > button {
+    background-color: mat-contrast($ReMINDers-primary, 300);
+    color: white;
+  }
+}

@@ -16,6 +16,8 @@ import {MatcherComponent} from './pages/matcher/matcher.component';
 import {SpinnerComponent} from './components/spinner/spinner.component';
 import {AuthGuard} from './services/auth/auth.guard';
 import { UserprofileComponent } from './pages/userprofile/userprofile.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { PopupComponent } from './components/popup/popup.component';
 
 @NgModule({
   declarations: [
@@ -27,10 +29,12 @@ import { UserprofileComponent } from './pages/userprofile/userprofile.component'
     ProfileComponent,
     MatcherComponent,
     SpinnerComponent,
-    UserprofileComponent
+    UserprofileComponent,
+    PopupComponent,
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     MatUiModule,
     ReactiveFormsModule,

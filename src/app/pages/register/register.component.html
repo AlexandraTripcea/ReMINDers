@@ -6,43 +6,47 @@
 </div>
 
 <form [formGroup]="registerForm" (submit)="onSubmit()" class="container-fluid">
-  <div [@slider] class="contact-input-field mindmatch-title" *ngIf="showNickname">
+  <div [@slider]="animationState" class="contact-input-field mindmatch-title" *ngIf="showNickname">
     <mat-form-field *ngIf="showNickname">
       <mat-label>What's your nickname?</mat-label>
       <input matInput type="text" id="nickname" name="nickname" formControlName="nickname">
     </mat-form-field>
-    <button [disabled]="!controls.nickname?.valid" class="submit-button" (click)="showHome=true;showNickname=false"
+    <button [disabled]="!controls.nickname?.valid" class="submit-button"
+            (click)="resetAnimation('next');showHome=true;showNickname=false"
             mat-button>Next
     </button>
   </div>
-
-  <div [@slider] class="contact-input-field mindmatch-title" *ngIf="showHome">
-    <mat-form-field [@slider] class="">
+  <div [@slider]="animationState" class="contact-input-field mindmatch-title" *ngIf="showHome">
+    <mat-form-field>
       <mat-label>Where are you from?</mat-label>
       <input matInput type="text" id="home" name="home" formControlName="home">
     </mat-form-field>
-    <button [disabled]="!controls.home?.valid" class="submit-button" (click)="showGender=true;showHome=false"
+    <button [disabled]="!controls.home?.valid" class="submit-button"
+            (click)="resetAnimation('next');showGender=true;showHome=false"
             mat-button>Next
     </button>
-    <button class="submit-button" (click)="showHome=false;showNickname=true" mat-button>Prev</button>
+    <button class="submit-button" (click)="resetAnimation('prev');showHome=false;showNickname=true" mat-button>Prev
+    </button>
   </div>
 
 
-  <div [@slider] class="contact-input-field mindmatch-title" *ngIf="showGender">
+  <div [@slider]="animationState" class="contact-input-field mindmatch-title" *ngIf="showGender">
     <mat-label>You are a..</mat-label>
     <mat-radio-group class="radio-container" formControlName="gender">
       <mat-radio-button [value]="gender" *ngFor="let gender of genderOptions">
         {{gender}}
       </mat-radio-button>
     </mat-radio-group>
-    <button [disabled]="!controls.gender?.valid" class="submit-button" (click)="showGender=false;showSexualPref=true"
+    <button [disabled]="!controls.gender?.valid" class="submit-button"
+            (click)="resetAnimation('next');showGender=false;showSexualPref=true"
             mat-button>Next
     </button>
-    <button class="submit-button" (click)="showGender=false;showHome=true" mat-button>Prev</button>
+    <button class="submit-button" (click)="resetAnimation('prev');showGender=false;showHome=true" mat-button>Prev
+    </button>
   </div>
 
 
-  <div [@slider] class="contact-input-field mindmatch-title" *ngIf="showSexualPref">
+  <div [@slider]="animationState" class="contact-input-field mindmatch-title" *ngIf="showSexualPref">
     <mat-label>You are interested in..</mat-label>
     <mat-radio-group class="radio-container" formControlName="sexualPref">
       <mat-radio-button [value]="genderOptions[idx]" *ngFor="let pref of sexualPrefOptions;index as idx">
@@ -50,12 +54,12 @@
       </mat-radio-button>
     </mat-radio-group>
     <button [disabled]="!controls.sexualPref?.valid" class="submit-button"
-            (click)="showAnswers=true; showSexualPref=false;" mat-button>Next
+            (click)="resetAnimation('next');showAnswers=true; showSexualPref=false" mat-button>Next
     </button>
-    <button class="submit-button" (click)="showSexualPref=false;showGender=true" mat-button>Prev</button>
+    <button class="submit-button" (click)="resetAnimation('prev');showSexualPref=false;showGender=true" mat-button>Prev</button>
   </div>
 
-  <div [@slider] class="contact-input-field mindmatch-title" *ngIf="showAnswers">
+  <div [@slider]="animationState" class="contact-input-field mindmatch-title" *ngIf="showAnswers">
     <mat-label class="mindmatch-title">Give us a taste of your tastes</mat-label>
     <div class="questionaire">
       <mat-label class="mindmatch-font">Question1</mat-label>
@@ -92,6 +96,7 @@
             *ngIf="showAnswers" mat-raised-button>Finish up and choose your email and password
     </button>
   </div>
+
   <div class="user-pass-form" *ngIf="showUserPass">
     <mat-form-field>
       <mat-label>Email</mat-label>
@@ -99,7 +104,7 @@
     </mat-form-field>
     <div *ngIf="!controls.email?.valid">
       <div *ngIf="submitted && controls.email.errors.required">
-        <p class="alert-danger">Please provide your email</p>
+        <p class="warning">Please provide your email</p>
       </div>
     </div>
 
@@ -109,24 +114,18 @@
     </mat-form-field>
     <div *ngIf="!controls.password?.valid">
       <div *ngIf="submitted && controls.password.errors.required">
-        <p class="alert-danger">Please do provide a password</p>
+        <p class="warning">Please do provide a password</p>
       </div>
       <div *ngIf="submitted && controls.password.errors.minLength">
-        <p class="alert-danger">Password needs to be at least 8 characters long</p>
+        <p class="warning">Password needs to be at least 8 characters long</p>
       </div>
     </div>
-    <button data-toggle="modal" data-target="#registeredSuccesfully" type="submit" mat-raised-button class="submit-button">
+    <div *ngIf="errorMessage">
+      <p class="warning">{{errorMessage}}</p>
+    </div>
+    <button type="submit" mat-raised-button class="submit-button">
       Submit and start MindMatching!
     </button>
   </div>
 </form>
 
-<div class="modal fade" id="registeredSuccesfully" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">You have been registered succesfully and will be redirected!</h5>
-      </div>
-    </div>
-  </div>
-</div>

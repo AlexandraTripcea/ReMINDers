@@ -3,6 +3,10 @@ import {Subject} from 'rxjs';
 import {AuthService} from '../../services/auth/auth.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
+import {ErrorHandlerService} from '../../services/error-handler/error-handler.service';
+import $ from 'jquery';
+
+declare var $: $;
 
 @Component({
   selector: 'app-login',
@@ -12,11 +16,15 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class LoginComponent implements OnInit, OnDestroy {
   private destroy$: Subject<boolean>;
   loginForm: FormGroup;
-  private succes = false;
-  private error = false;
   submitted = false;
+  errorMessage = '';
+  registeredSuccesfully = false;
 
-  constructor(private auth: AuthService, private fb: FormBuilder, private route: ActivatedRoute, private router: Router) {
+  constructor(private auth: AuthService,
+              private fb: FormBuilder,
+              private route: ActivatedRoute,
+              private router: Router,
+              private errHandler: ErrorHandlerService) {
     this.destroy$ = new Subject<boolean>();
   }
 
@@ -26,16 +34,17 @@ export class LoginComponent implements OnInit, OnDestroy {
       password: ['', [Validators.required]],
       trappy: ['']
     });
-    if (this.auth.getLoginStatus()) {
-      // this.router.navigate(['/profile']);
+    if (this.route.snapshot.queryParams.registered) {
+      this.registeredSuccesfully = true;
     }
-
+    if (this.auth.getLoginStatus()) {
+      this.router.navigate(['/profile']);
+    }
   }
 
   get controls() {
     return this.loginForm.controls;
   }
-
 
   onSubmit(): void {
     this.submitted = true;
@@ -45,7 +54,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.auth.signUserIn({
       email: this.controls.email.value,
       password: this.controls.password.value
-    }).then(() => this.router.navigate(['profile'])).catch(() => this.error = true);
+    }).then(() => this.router.navigate(['profile'])).catch(err => this.errorMessage = this.errHandler.handleError(err.code));
   }
 
   ngOnDestroy(): void {

@@ -22,6 +22,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   }
 
+  signUserOut(): void {
+    this.authService.signUserOut();
+  }
+
   async ngOnInit(): Promise<void> {
     this.profileForm = this.fb.group({
       nickname: [''],
