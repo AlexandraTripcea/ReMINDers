@@ -10,7 +10,7 @@ export class NavbarComponent implements OnInit {
   navbarOptions = [
     {name: 'Home', path: ''},
     {name: 'Login', path: 'login'},
-    {name: 'Register', path: 'register'},
+    {name: 'Register', path: '/register'},
     {name: 'Profile', path: '/profile'},
     {name: 'Matcher', path: '/matcher'}
   ];

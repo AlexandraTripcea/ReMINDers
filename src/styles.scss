@@ -58,12 +58,14 @@ a:hover {
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1439px) {
-
+  .mindmatch-font {
+    font-size: 20px;
+  }
   .icon {
     font-size: 45px;
   }
   .mindmatch-title {
-    font-size: 22px;
+    font-size: 24px;
   }
 }
 
@@ -79,7 +81,7 @@ a:hover {
 
 @media only screen and (min-width: 2159px) and (max-width: 3838px) {
   .mindmatch-font {
-    font-size: 36px; //xx-large
+    font-size: 25px; //xx-large
   }
   .warning {
     font-size: 30px; //xx-large

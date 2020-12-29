@@ -3,10 +3,6 @@ import {UserService} from '../../services/user/user.service';
 import {Subject} from 'rxjs';
 import {fader, sliderNpopper} from '../../../animations';
 
-import $ from 'jquery';
-
-declare var $: $;
-
 @Component({
   selector: 'app-matcher',
   templateUrl: './matcher.component.html',
@@ -24,15 +20,18 @@ export class MatcherComponent implements OnInit, OnDestroy {
   currentMatchedUser: any;
   changeDetectorRef: ChangeDetectorRef;
   animationState = 'slider';
+  dummyarray = ['Dummy', 'Dummy', 'Dummy', 'Dummy', 'Dummy'];
 
   /*TODO:
     -password validators
     -check wtf is jwt
-    -profile (setting/editing, seeing other people, additional info)
-    -drawer/sidebar
     -questions
     -chat
     -UI and responsive
+    -homepage
+    -register age field
+    -drawer/sidebar
+    -handle transitions for register (jumping artifact)
    */
   constructor(private userService: UserService, changeDetectorRef: ChangeDetectorRef) {
     this.changeDetectorRef = changeDetectorRef;

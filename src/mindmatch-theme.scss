@@ -3,15 +3,23 @@
 @include mat-core();
 
 $mindmatch-primary: (
-  100:#ffb098,
-  200:#d3806a,
+  100:#c489e2,
+  200:#785589,
   contrast:(
-    300: #8C4A3A
+    300: #4b3456
   )
 );
 
-$ReMINDers-primary: mat-palette($mindmatch-primary, 100);
-$ReMINDers-accent: mat-palette($mat-yellow, 300, 100, 50);
+$mindmatch-accent: (
+  100:#ffead0,
+  200:#e0ceb7,
+  contrast:(
+    300:#d1c2aa
+  )
+);
+
+$ReMINDers-primary: mat-palette($mindmatch-primary);
+$ReMINDers-accent: mat-palette($mat-amber,300,100,50);
 
 $ReMINDers-warn: mat-palette($mat-red);
 

@@ -1,13 +1,105 @@
+@import "../../../mindmatch-theme";
+
 .container-fluid {
+  background-color: mat-color($ReMINDers-primary, 100);
   display: flex;
   justify-content: center;
   flex-flow: column;
-}
-.contact-input-field {
-  width: 20%;
+  height: 100%;
+
+  .contact-input-field {
+    display: flex;
+    width: 35%;
+    align-self: center;
+    flex-flow: column;
+    color: mat-contrast($ReMINDers-primary, 300);
+
+    mat-form-field {
+      width: 100%;
+    }
+
+    a {
+      transition: 0.2s ease-in-out;
+      color: mat-contrast($ReMINDers-primary, 300);
+      align-self: flex-end;
+    }
+
+    a:hover {
+      color: mat-color($ReMINDers-primary, 200);
+    }
+
+    .submit-button {
+      align-self: flex-start;
+      left: 1.5%;
+      transition: 0.2s ease-in;
+      background-color: mat-color($ReMINDers-accent, 300);
+    }
+
+    .submit-button:hover {
+      background-color: mat-color($ReMINDers-accent, 100);
+
+    }
+  }
 }
 
 .issatrap {
   position: absolute;
   bottom: 150%;
 }
+
+
+@media only screen and (max-width: 767px) {
+  .container-fluid {
+    .contact-input-field {
+      width: 80%;
+    }
+
+    .submit-button {
+      margin-top: 15px;
+    }
+  }
+
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1439px) {
+  .container-fluid {
+    .contact-input-field {
+      width: 50%;
+    }
+  }
+}
+
+@media only screen and (min-width: 1440px) and (max-width: 2158px) {
+  .container-fluid {
+    .contact-input-field {
+      width: 35%;
+    }
+  }
+}
+
+@media only screen and (min-width: 2159px) {
+  .contact-input-field {
+    width: 35%;
+    .submit-button {
+      font-size: 35px;
+      padding: 15px;
+    }
+    a {
+      font-size: 25px;
+    }
+  }
+}
+
+@media only screen and (min-width: 3839px) {
+    .contact-input-field {
+      width: 35%;
+      .submit-button {
+        font-size: 50px;
+        padding: 20px;
+      }
+
+      a {
+        font-size: 35px;
+      }
+    }
+  }

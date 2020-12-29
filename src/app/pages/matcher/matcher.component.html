@@ -3,19 +3,38 @@
 <div class="container-fluid" *ngIf="spinnerDissapears && matchedUserCounter !== matchedUsers.length">
   <ng-template ngFor let-user [ngForOf]="[currentMatchedUser]">
     <mat-card id="#matchCard" [@sliderNpopper]="animationState" class="match-card m-4">
-      <mat-card-header class="card-header">
+      <!--      Name, age, gender, location-->
+      <mat-card-header>
         <mat-card-title
-          [routerLink]="['/userprofile', currentMatchedUser.nickname]">{{currentMatchedUser.nickname}}</mat-card-title>
+          [routerLink]="['/userprofile', currentMatchedUser.nickname]">{{currentMatchedUser.nickname}}
+          , {{currentMatchedUser.age}}
+        </mat-card-title>
         <mat-card-subtitle>{{currentMatchedUser.home}}</mat-card-subtitle>
         <mat-card-subtitle *ngIf="userSexualPref==='Both'">{{currentMatchedUser.gender}}</mat-card-subtitle>
       </mat-card-header>
-      <mat-card-content class="mindmatch-font">
-        {{currentMatchedUser.bio}}
+      <!--      Name, age, gender, location-->
+
+      <!--      Bio-->
+      <mat-card-content class="mindmatch-font bio">
+        <p> {{currentMatchedUser.bio}}</p>
       </mat-card-content>
+      <!--      Bio-->
+      <!--      General info and buttons-->
       <mat-card-actions>
-        <button mat-button (click)="resetAnimation('slider');matchUser(currentMatchedUser.email);getNextUser()">MindMatch</button>
-        <button mat-button (click)="resetAnimation('pop');rejectUser(currentMatchedUser.email);getNextUser()">Nah</button>
+        <div class="personal-info col-lg-6">
+          <p *ngFor="let dummy of dummyarray">{{dummy}}</p>
+        </div>
+        <div class="controls col-lg-6">
+          <button mat-raised-button
+                  (click)="resetAnimation('slider');matchUser(currentMatchedUser.email);getNextUser()">
+            MindMatch
+          </button>
+          <button mat-raised-button (click)="resetAnimation('pop');rejectUser(currentMatchedUser.email);getNextUser()">
+            Nah
+          </button>
+        </div>
       </mat-card-actions>
+      <!--      General info and buttons-->
     </mat-card>
   </ng-template>
 </div>
