@@ -5,31 +5,33 @@
     <mat-card id="#matchCard" [@sliderNpopper]="animationState" class="match-card m-4">
       <!--      Name, age, gender, location-->
       <mat-card-header>
-        <mat-card-title
-          [routerLink]="['/userprofile', currentMatchedUser.nickname]">{{currentMatchedUser.nickname}}
-          , {{currentMatchedUser.age}}
-        </mat-card-title>
-        <mat-card-subtitle>{{currentMatchedUser.home}}</mat-card-subtitle>
-        <mat-card-subtitle *ngIf="userSexualPref==='Both'">{{currentMatchedUser.gender}}</mat-card-subtitle>
+        <div class="title-container">
+        <p class="match-name mindmatch-title"
+           [routerLink]="['/userprofile', currentMatchedUser.nickname]">{{currentMatchedUser.nickname}}, {{currentMatchedUser.age}}
+        </p>
+        <p class="match-location mindmatch-font">{{currentMatchedUser.home}}</p>
+        <p *ngIf="userSexualPref==='Both'" class="match-gender mindmatch-font">{{currentMatchedUser.gender}}</p>
+        </div>
       </mat-card-header>
       <!--      Name, age, gender, location-->
 
       <!--      Bio-->
-      <mat-card-content class="mindmatch-font bio">
-        <p> {{currentMatchedUser.bio}}</p>
+      <mat-card-content class="bio">
+        <p class="mindmatch-font"> {{currentMatchedUser.bio}}</p>
       </mat-card-content>
       <!--      Bio-->
       <!--      General info and buttons-->
       <mat-card-actions>
-        <div class="personal-info col-lg-6">
-          <p *ngFor="let dummy of dummyarray">{{dummy}}</p>
+        <div class="personal-info">
+          <p class="mindmatch-font" *ngFor="let dummy of dummyarray">{{dummy}}</p>
         </div>
-        <div class="controls col-lg-6">
-          <button mat-raised-button
+        <div class="controls">
+          <button class="submit-button" mat-raised-button
                   (click)="resetAnimation('slider');matchUser(currentMatchedUser.email);getNextUser()">
             MindMatch
           </button>
-          <button mat-raised-button (click)="resetAnimation('pop');rejectUser(currentMatchedUser.email);getNextUser()">
+          <button class="submit-button" mat-raised-button
+                  (click)="resetAnimation('pop');rejectUser(currentMatchedUser.email);getNextUser()">
             Nah
           </button>
         </div>

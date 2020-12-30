@@ -1,9 +1,8 @@
-<div *ngIf="showWelcome" class="welcome-container">
-  <mat-label class="mindmatch-title">Before you join us, we have to get acquainted!</mat-label>
-  <button mat-raised-button (click)="showWelcome=false;showNickname=true;" class="submit-button"> Let's get this show on
-    the road!
-  </button>
-</div>
+<!--<div *ngIf="showWelcome" class="welcome-container">-->
+<!--  <mat-label class="mindmatch-title">Let's get acquainted!</mat-label>-->
+<!--  <button mat-raised-button (click)="showWelcome=false;showNickname=true;" class="submit-button">Sounds good!-->
+<!--  </button>-->
+<!--</div>-->
 
 <form [formGroup]="registerForm" (submit)="onSubmit()" class="container-fluid">
   <div [@slider]="animationState" class="contact-input-field mindmatch-title" *ngIf="showNickname">
@@ -11,7 +10,7 @@
       <mat-label>What's your nickname?</mat-label>
       <input matInput type="text" id="nickname" name="nickname" formControlName="nickname">
     </mat-form-field>
-    <button [disabled]="!controls.nickname?.valid" class="submit-button"
+    <button mat-raised-button [disabled]="!controls.nickname?.valid" class="submit-button"
             (click)="resetAnimation('next');showHome=true;showNickname=false"
             mat-button>Next
     </button>
@@ -21,12 +20,15 @@
       <mat-label>Where are you from?</mat-label>
       <input matInput type="text" id="home" name="home" formControlName="home">
     </mat-form-field>
-    <button [disabled]="!controls.home?.valid" class="submit-button"
-            (click)="resetAnimation('next');showGender=true;showHome=false"
-            mat-button>Next
-    </button>
-    <button class="submit-button" (click)="resetAnimation('prev');showHome=false;showNickname=true" mat-button>Prev
-    </button>
+    <div class="actions-container">
+      <button mat-raised-button [disabled]="!controls.home?.valid" class="submit-button"
+              (click)="resetAnimation('next');showGender=true;showHome=false"
+              mat-button>Next
+      </button>
+      <button mat-raised-button class="submit-button" (click)="resetAnimation('prev');showHome=false;showNickname=true"
+              mat-button>Prev
+      </button>
+    </div>
   </div>
 
 
@@ -37,12 +39,15 @@
         {{gender}}
       </mat-radio-button>
     </mat-radio-group>
-    <button [disabled]="!controls.gender?.valid" class="submit-button"
-            (click)="resetAnimation('next');showGender=false;showSexualPref=true"
-            mat-button>Next
-    </button>
-    <button class="submit-button" (click)="resetAnimation('prev');showGender=false;showHome=true" mat-button>Prev
-    </button>
+    <div class="actions-container">
+      <button mat-raised-button [disabled]="!controls.gender?.valid" class="submit-button"
+              (click)="resetAnimation('next');showGender=false;showSexualPref=true"
+              mat-button>Next
+      </button>
+      <button mat-raised-button class="submit-button" (click)="resetAnimation('prev');showGender=false;showHome=true"
+              mat-button>Prev
+      </button>
+    </div>
   </div>
 
 
@@ -53,39 +58,46 @@
         {{pref}}
       </mat-radio-button>
     </mat-radio-group>
-    <button [disabled]="!controls.sexualPref?.valid" class="submit-button"
-            (click)="resetAnimation('next');showAnswers=true; showSexualPref=false" mat-button>Next
-    </button>
-    <button class="submit-button" (click)="resetAnimation('prev');showSexualPref=false;showGender=true" mat-button>Prev</button>
+    <div class="actions-container">
+      <button mat-raised-button [disabled]="!controls.sexualPref?.valid" class="submit-button"
+              (click)="resetAnimation('next');showAnswers=true; showSexualPref=false" mat-button>Next
+      </button>
+      <button mat-raised-button class="submit-button"
+              (click)="resetAnimation('prev');showSexualPref=false;showGender=true" mat-button>Prev
+      </button>
+    </div>
   </div>
 
   <div [@slider]="animationState" class="contact-input-field mindmatch-title" *ngIf="showAnswers">
-    <mat-label class="mindmatch-title">Give us a taste of your tastes</mat-label>
+    <p class="mindmatch-title">Give us a taste of your tastes</p>
     <div class="questionaire">
-      <mat-label class="mindmatch-font">Question1</mat-label>
+      <p class="mindmatch-font">Question1</p>
       <mat-radio-group class="radio-container" formControlName="question1">
         <mat-radio-button [value]="option" *ngFor="let option of question1Options">
           {{option}}
         </mat-radio-button>
       </mat-radio-group>
-      <mat-label class="mindmatch-font">Question1</mat-label>
-      <mat-radio-group class="radio-container" formControlName="question2">
-        <mat-radio-button [value]="option" *ngFor="let option of question1Options">
-          {{option}}
-        </mat-radio-button>
-      </mat-radio-group>
-      <mat-label class="mindmatch-font">Question1</mat-label>
-      <mat-radio-group class="radio-container" formControlName="question3">
-        <mat-radio-button [value]="option" *ngFor="let option of question1Options">
-          {{option}}
-        </mat-radio-button>
-      </mat-radio-group>
-      <mat-label class="mindmatch-font">Question1</mat-label>
-      <mat-radio-group class="radio-container" formControlName="question4">
-        <mat-radio-button [value]="option" *ngFor="let option of question1Options">
-          {{option}}
-        </mat-radio-button>
-      </mat-radio-group>
+      <p class="mindmatch-font">Question1
+      <p>
+        <mat-radio-group class="radio-container" formControlName="question2">
+          <mat-radio-button [value]="option" *ngFor="let option of question1Options">
+            {{option}}
+          </mat-radio-button>
+        </mat-radio-group>
+      <p class="mindmatch-font">Question1
+      <p>
+        <mat-radio-group class="radio-container" formControlName="question3">
+          <mat-radio-button [value]="option" *ngFor="let option of question1Options">
+            {{option}}
+          </mat-radio-button>
+        </mat-radio-group>
+      <p class="mindmatch-font">Question1
+      <p>
+        <mat-radio-group class="radio-container" formControlName="question4">
+          <mat-radio-button [value]="option" *ngFor="let option of question1Options">
+            {{option}}
+          </mat-radio-button>
+        </mat-radio-group>
     </div>
     <button [disabled]="!controls.question1?.valid
      || !controls.question2?.valid
@@ -93,11 +105,11 @@
        || !controls.question4?.valid"
             class="submit-button"
             (click)="showAnswers=false;showUserPass=true;"
-            *ngIf="showAnswers" mat-raised-button>Finish up and choose your email and password
+            *ngIf="showAnswers" mat-raised-button>Time for the email and password
     </button>
   </div>
 
-  <div class="user-pass-form" *ngIf="showUserPass">
+  <div class="user-pass-form mindmatch-title">
     <mat-form-field>
       <mat-label>Email</mat-label>
       <input matInput type="text" id="email" name="email" formControlName="email">
@@ -105,6 +117,9 @@
     <div *ngIf="!controls.email?.valid">
       <div *ngIf="submitted && controls.email.errors.required">
         <p class="warning">Please provide your email</p>
+      </div>
+      <div *ngIf="submitted && controls.email.errors.pattern">
+        <p class="warning">We both know that's not an email</p>
       </div>
     </div>
 
@@ -123,8 +138,8 @@
     <div *ngIf="errorMessage">
       <p class="warning">{{errorMessage}}</p>
     </div>
-    <button type="submit" mat-raised-button class="submit-button">
-      Submit and start MindMatching!
+    <button mat-raised-button type="submit" class="submit-button">
+      Start MindMatching!
     </button>
   </div>
 </form>

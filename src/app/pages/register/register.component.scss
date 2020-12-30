@@ -1,61 +1,164 @@
-.container-fluid{
+@import "../../../mindmatch-theme";
+
+.container-fluid {
   display: flex;
   flex-flow: column;
   align-self: center;
   justify-content: center;
 }
+
 .user-pass-form {
   position: absolute;
   display: flex;
   justify-content: center;
   flex-flow: column;
-  width:20%;
-  top:20%;
+  width: 20%;
+  top: 20%;
   align-self: center;
-}
-.welcome-container{
-  display: flex;
-  position: absolute;
-  flex-flow: column;
-  height:15vh;
-  top:20%;
-  left:0;
-  right:0;
-  justify-content: space-around;
-}
 
-.mindmatch-title{
-  align-self: center;
-}
-
-.questionaire{
-  padding:5%;
-  height:60vh;
-  display: flex;
-  flex-flow: column;
-  justify-content: space-evenly;
-}
-
-.submit-button{
-  align-self: center;
-}
-.contact-input-field{
-  position: absolute;
-  align-self: center;
-  top:20%;
-  display: flex;
-  flex-flow: column;
-  width:20%;     // this needs media query
-  >mat-form-field{
+  mat-form-field {
     width: 100%;
   }
 }
 
-.radio-container{
+.welcome-container {
+  display: flex;
+  position: absolute;
+  flex-flow: column;
+  text-align: center;
+  height: 30%;
+  top: 30%;
+  left: 0;
+  right: 0;
+  justify-content: space-evenly;
+  padding: 2%;
+
+  .mindmatch-title {
+    align-self: center;
+  }
+}
+
+
+.submit-button {
+  align-self: center;
+}
+
+.contact-input-field {
+  position: absolute;
+  align-self: center;
+  top: 30%;
+  display: flex;
+  flex-flow: column;
+  width: 20%;
+
+  .mindmatch-title {
+    margin: 2%;
+  }
+
+  .mindmatch-font {
+    color: mat-contrast($ReMINDers-primary, 300)
+  }
+
+  mat-radio-group {
+    margin: 5%;
+  }
+
+  mat-form-field {
+    width: 100%;
+  }
+
+  .submit-button {
+    width: 20%;
+  }
+
+  .actions-container {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-evenly;
+
+    .submit-button {
+      width: 20%;
+    }
+  }
+
+  .questionaire {
+    padding: 5%;
+    height: 60%;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-evenly;
+  }
+}
+
+.radio-container {
   display: flex;
   flex-flow: row;
   justify-content: space-evenly;
-  >mat-radio-button{
-    margin:2%;
+
+  > mat-radio-button {
+    margin: 2%;
   }
+}
+
+@media only screen and (max-width: 767px) {
+  .welcome-container {
+    height: 20%;
+  }
+  .contact-input-field, .user-pass-form{
+    width: 80%;
+  }
+
+  .submit-button {
+    margin-top: 15px;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1439px) {
+  .contact-input-field, .user-pass-form {
+    width: 50%;
+  }
+  .welcome-container {
+    height: 20%;
+  }
+  .submit-button {
+    padding: 10px;
+    font-size: 24px;
+  }
+}
+
+@media only screen and (min-width: 1440px) and (max-width: 2158px) {
+  .contact-input-field, .user-pass-form {
+    width: 35%;
+  }
+}
+
+@media only screen and (min-width: 2159px) {
+  .contact-input-field {
+    width: 35%;
+
+    mat-radio-group {
+      margin: 7%;
+    }
+  }
+  .submit-button {
+    font-size: 35px;
+    padding: 15px;
+    margin:15px;
+  }
+}
+
+@media only screen and (min-width: 3839px) {
+  .contact-input-field, .user-pass-form {
+    width: 35%;
+
+    mat-radio-group {
+      margin: 10%;
+    }
+  }
+  .submit-button {
+    font-size: 50px;
+    padding: 30px;
+    margin:20px;
+  }
+
 }

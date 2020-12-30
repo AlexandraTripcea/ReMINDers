@@ -38,7 +38,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
               private authService: AuthService,
               private userService: UserService, private router: Router,
               private errHandler: ErrorHandlerService,
-              changeDetectorRef: ChangeDetectorRef){
+              changeDetectorRef: ChangeDetectorRef) {
     this.changeDetectorRef = changeDetectorRef;
     this.destroy$ = new Subject<boolean>();
     this.registerForm = this.fb.group({
@@ -66,10 +66,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   async onSubmit(): Promise<void> {
+    this.submitted = true;
     if (this.registerForm.invalid) {
       return;
     } else {
-      this.submitted = true;
       Object.keys(this.registerForm.controls).forEach((key: string) => {
         if (key.startsWith('q')) {
           this.userID += this.registerForm.get(key).value;
