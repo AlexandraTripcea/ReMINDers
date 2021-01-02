@@ -7,6 +7,7 @@ import {ProfileComponent} from './pages/profile/profile.component';
 import {MatcherComponent} from './pages/matcher/matcher.component';
 import {UserprofileComponent} from './pages/userprofile/userprofile.component';
 import {AuthGuard} from './services/auth/auth.guard';
+import {ChatComponent} from './pages/chat/chat.component';
 
 
 const routes: Routes = [
@@ -16,7 +17,7 @@ const routes: Routes = [
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
   {path: 'matcher', component: MatcherComponent, canActivate: [AuthGuard]},
   {path: 'userprofile/:nickname', component: UserprofileComponent, canActivate: [AuthGuard]},
-
+  {path: 'chat/:id', component: ChatComponent, canActivate: [AuthGuard]},
   // otherwise redirect to home
   {path: '**', redirectTo: ''}
 ];

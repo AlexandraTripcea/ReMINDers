@@ -4,13 +4,7 @@ import {Injectable} from '@angular/core';
   providedIn: 'root'
 })
 export class ErrorHandlerService {
-
-  constructor() {
-  }
-
-
   handleError(code: string): string {
-    console.log(code)
     if (code === 'auth/user-not-found') {
       return 'No user with this email was found';
     }

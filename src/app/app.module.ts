@@ -18,6 +18,7 @@ import {AuthGuard} from './services/auth/auth.guard';
 import { UserprofileComponent } from './pages/userprofile/userprofile.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { PopupComponent } from './components/popup/popup.component';
+import { ChatComponent } from './pages/chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { PopupComponent } from './components/popup/popup.component';
     SpinnerComponent,
     UserprofileComponent,
     PopupComponent,
+    ChatComponent,
   ],
   imports: [
     BrowserModule,

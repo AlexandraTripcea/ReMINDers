@@ -51,12 +51,12 @@ export class UserService implements OnDestroy {
     let hammingDistanceCount = 0;
     const matchedUsers = [];
     allUsers.forEach((user) => {
-      for (let answerIndex = 0; answerIndex < user.ID.length; ++answerIndex) {
-        if (user.ID[answerIndex] === idToMatch[answerIndex]) {
+      for (let answerIndex = 0; answerIndex < user.data.ID.length; ++answerIndex) {
+        if (user.data.ID[answerIndex] === idToMatch[answerIndex]) {
           hammingDistanceCount++;
         }
       }
-      if (hammingDistanceCount / user.ID.length >= 0.5) {
+      if (hammingDistanceCount / user.data.ID.length >= 0.5) {
         matchedUsers.push(user);
         hammingDistanceCount = 0;
       }
@@ -77,6 +77,7 @@ export class UserService implements OnDestroy {
       .doc(this.auth.getLoginId())
       .get()
       .toPromise<any>().then(data => alreadyMatchedUsers = data.data().matches);
+
     if (currentUser.sexualPref !== 'Both') {
       await this.firestore.collection('users').ref
         .where('gender', '==', `${currentUser.sexualPref}`)
@@ -85,7 +86,7 @@ export class UserService implements OnDestroy {
             if (newUser.data().email !== currentUser.email
               && alreadyMatchedUsers.indexOf(newUser.data().email) === -1
               && rejectedUsers.indexOf(newUser.data().email) === -1) {
-              rightGenderUsers.push(newUser.data());
+              rightGenderUsers.push({data: newUser.data(), uid: newUser.id});
             }
           }));
     } else {
@@ -95,12 +96,10 @@ export class UserService implements OnDestroy {
             if (newUser.data().email !== currentUser.email
               && alreadyMatchedUsers.indexOf(newUser.data().email) === -1
               && rejectedUsers.indexOf(newUser.data().email) === -1) {
-              rightGenderUsers.push(newUser.data());
+              rightGenderUsers.push({data: newUser.data(), uid: newUser.id});
             }
           }));
     }
-
-
     return this.matchUsers(rightGenderUsers, currentUser.ID);
   }
 
@@ -113,9 +112,6 @@ export class UserService implements OnDestroy {
     return currentUser;
   }
 
-  getUserWithNickname(val): Observable<any> {
-    return this.firestore.collection('/users', ref => ref.where('nickname', '==', val)).valueChanges();
-  }
 
   ngOnDestroy(): void {
     this.destroy$.next();

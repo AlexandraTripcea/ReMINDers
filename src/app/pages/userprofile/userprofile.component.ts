@@ -13,17 +13,15 @@ export class UserprofileComponent implements OnInit, OnDestroy {
   private destroy$: Subject<boolean>;
   public user: any;
   public userData: any;
-  public nickname;
-  public subs;
+  public uid;
 
   constructor(private route: ActivatedRoute, private userService: UserService) {
     this.destroy$ = new Subject<boolean>();
-
   }
 
   async ngOnInit(): Promise<void> {
-    this.nickname = this.route.snapshot.params.nickname;
-    this.user = await this.userService.getUserWithNickname(this.nickname);
+    this.uid = this.route.snapshot.params.uid;
+    this.user = await this.userService.getUserFromFirestore(this.uid);
     this.user.subscribe(u => {
       this.userData = u[0];
     });

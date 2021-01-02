@@ -7,17 +7,17 @@
       <mat-card-header>
         <div class="title-container">
         <p class="match-name mindmatch-title"
-           [routerLink]="['/userprofile', currentMatchedUser.nickname]">{{currentMatchedUser.nickname}}, {{currentMatchedUser.age}}
+           [routerLink]="['/userprofile', currentMatchedUser.uid]">{{currentMatchedUser.data.nickname}}, {{currentMatchedUser.data.age}}
         </p>
-        <p class="match-location mindmatch-font">{{currentMatchedUser.home}}</p>
-        <p *ngIf="userSexualPref==='Both'" class="match-gender mindmatch-font">{{currentMatchedUser.gender}}</p>
+        <p class="match-location mindmatch-font">{{currentMatchedUser.data.home}}</p>
+        <p *ngIf="userSexualPref==='Both'" class="match-gender mindmatch-font">{{currentMatchedUser.data.gender}}</p>
         </div>
       </mat-card-header>
       <!--      Name, age, gender, location-->
 
       <!--      Bio-->
       <mat-card-content class="bio">
-        <p class="mindmatch-font"> {{currentMatchedUser.bio}}</p>
+        <p class="mindmatch-font"> {{currentMatchedUser.data.bio}}</p>
       </mat-card-content>
       <!--      Bio-->
       <!--      General info and buttons-->
@@ -27,11 +27,11 @@
         </div>
         <div class="controls">
           <button class="submit-button" mat-raised-button
-                  (click)="resetAnimation('slider');matchUser(currentMatchedUser.email);getNextUser()">
+                  (click)="resetAnimation('slider');matchUser(currentMatchedUser.uid);getNextUser()">
             MindMatch
           </button>
           <button class="submit-button" mat-raised-button
-                  (click)="resetAnimation('pop');rejectUser(currentMatchedUser.email);getNextUser()">
+                  (click)="resetAnimation('pop');rejectUser(currentMatchedUser.uid);getNextUser()">
             Nah
           </button>
         </div>
