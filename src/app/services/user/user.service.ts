@@ -13,16 +13,15 @@ export class UserService implements OnDestroy {
 
   constructor(private firestore: AngularFirestore, private auth: AuthService) {
     this.destroy$ = new Subject<boolean>();
-
   }
 
-  addUserMatch(newUserMatch: string): Promise<void> {
+  addUserMatch(newUserMatch: any): Promise<void> {
     return this.firestore.collection('users')
       .doc(this.auth.getLoginId())
       .update({matches: FieldValue.arrayUnion(newUserMatch)});
   }
 
-  addUserReject(newUserReject: string): Promise<void> {
+  addUserReject(newUserReject): Promise<void> {
     return this.firestore.collection('users')
       .doc(this.auth.getLoginId())
       .update({rejects: FieldValue.arrayUnion(newUserReject)});
@@ -77,15 +76,14 @@ export class UserService implements OnDestroy {
       .doc(this.auth.getLoginId())
       .get()
       .toPromise<any>().then(data => alreadyMatchedUsers = data.data().matches);
-
     if (currentUser.sexualPref !== 'Both') {
       await this.firestore.collection('users').ref
         .where('gender', '==', `${currentUser.sexualPref}`)
         .limit(50).get().then((data: any) => data
           .forEach((newUser) => {
             if (newUser.data().email !== currentUser.email
-              && alreadyMatchedUsers.indexOf(newUser.data().email) === -1
-              && rejectedUsers.indexOf(newUser.data().email) === -1) {
+              && alreadyMatchedUsers.findIndex(user => user.id === newUser.uid) === -1
+              && rejectedUsers.findIndex(user => user.id === newUser.uid) === -1) {
               rightGenderUsers.push({data: newUser.data(), uid: newUser.id});
             }
           }));
@@ -94,8 +92,8 @@ export class UserService implements OnDestroy {
         .limit(100).get().then((data: any) => data
           .forEach((newUser) => {
             if (newUser.data().email !== currentUser.email
-              && alreadyMatchedUsers.indexOf(newUser.data().email) === -1
-              && rejectedUsers.indexOf(newUser.data().email) === -1) {
+              && alreadyMatchedUsers.findIndex(user => user.id === newUser.uid) === -1
+              && rejectedUsers.findIndex(user => user.id === newUser.uid) === -1) {
               rightGenderUsers.push({data: newUser.data(), uid: newUser.id});
             }
           }));
@@ -105,13 +103,13 @@ export class UserService implements OnDestroy {
 
   async getCurrentlyLoggedInUserInfo(): Promise<any> {
     let currentUser: any;
-    await this.getUserFromFirestore(JSON.parse(localStorage.getItem('loggedInUser')).uid).toPromise()
+    await this.getUserFromFirestore(JSON.parse(localStorage.getItem('loggedInUser')).uid)
+      .toPromise()
       .then(user => {
         currentUser = user.data();
       });
     return currentUser;
   }
-
 
   ngOnDestroy(): void {
     this.destroy$.next();

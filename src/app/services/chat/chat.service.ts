@@ -1,21 +1,26 @@
-import {Injectable} from '@angular/core';
+import {Injectable, OnDestroy} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {AuthService} from '../auth/auth.service';
 import {Router} from '@angular/router';
 import {map, switchMap} from 'rxjs/operators';
-import {Observable, combineLatest, of} from 'rxjs';
+import {Observable, combineLatest, of, Subject} from 'rxjs';
 import firebase from 'firebase';
 import FieldValue = firebase.firestore.FieldValue;
+import {UserService} from '../user/user.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ChatService {
+export class ChatService implements OnDestroy {
+  private destroy$: Subject<boolean>;
+
   constructor(
     private afs: AngularFirestore,
     private auth: AuthService,
+    private userService: UserService,
     private router: Router
   ) {
+    this.destroy$ = new Subject<boolean>();
   }
 
   get(chatId): any {
@@ -30,17 +35,35 @@ export class ChatService {
       );
   }
 
-  async create(): Promise<boolean> {
+  async checkChatExistence(userId: string): Promise<string> {
+    let rightChat = null;
+    await this.afs.collection('users')
+      .doc(this.auth.getLoginId())
+      .get()
+      .toPromise<any>().then(data => {
+        data.data().chats.forEach((chat) => {
+          if (chat.matchedUser === userId) {
+            rightChat = chat;
+          }
+        });
+      });
+    return rightChat !== null ? rightChat.id : null;
+  }
+
+  async create(userId: string): Promise<boolean> {
     const uid = await this.auth.getLoginId();
 
     const data = {
-      uid,
+      uid1: uid,
+      uid2: userId,
       createdAt: Date.now(),
-      count: 0,
       messages: []
     };
     const docRef = await this.afs.collection('chats').add(data);
-    return this.router.navigate(['chats', docRef.id]);
+    this.afs.collection('users')
+      .doc(this.auth.getLoginId())
+      .update({chats: FieldValue.arrayUnion({id: docRef.id, matchedUser: userId})});
+    return this.router.navigate(['chat', docRef.id]);
   }
 
   async sendMessage(chatId, content): Promise<void> {
@@ -85,5 +108,10 @@ export class ChatService {
         return chat;
       })
     );
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

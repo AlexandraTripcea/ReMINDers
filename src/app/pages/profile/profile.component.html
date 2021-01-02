@@ -40,6 +40,12 @@
                   <mat-card-content class="mindmatch-font">
                     {{user.bio}}
                   </mat-card-content>
+                  <mat-card-actions>
+                    <button class="submit-button" mat-raised-button
+                            (click)="initializeChat(user.uid)">
+                      Chat
+                    </button>
+                  </mat-card-actions>
                 </mat-card>
               </div>
             </mat-tab>

@@ -62,12 +62,12 @@ export class MatcherComponent implements OnInit, OnDestroy {
     return this.currentUser.sexualPref;
   }
 
-  matchUser(userEmail: string): void {
-    this.userService.addUserMatch(userEmail);
+  matchUser(newMatch: any): void {
+    this.userService.addUserMatch({uid: newMatch.uid, nickname: newMatch.data.nickname, gender: newMatch.data.gender});
   }
 
-  rejectUser(userEmail: string): void {
-    this.userService.addUserReject(userEmail);
+  rejectUser(newReject: any): void {
+    this.userService.addUserReject({uid: newReject.uid, nickname: newReject.data.nickname, gender: newReject.data.gender});
   }
 
   ngOnDestroy(): void {

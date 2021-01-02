@@ -7,7 +7,7 @@
       <mat-card-header>
         <div class="title-container">
         <p class="match-name mindmatch-title"
-           [routerLink]="['/userprofile', currentMatchedUser.uid]">{{currentMatchedUser.data.nickname}}, {{currentMatchedUser.data.age}}
+           [routerLink]="['/userprofile', currentMatchedUser.data.nickname]">{{currentMatchedUser.data.nickname}}, {{currentMatchedUser.data.age}}
         </p>
         <p class="match-location mindmatch-font">{{currentMatchedUser.data.home}}</p>
         <p *ngIf="userSexualPref==='Both'" class="match-gender mindmatch-font">{{currentMatchedUser.data.gender}}</p>
@@ -27,11 +27,11 @@
         </div>
         <div class="controls">
           <button class="submit-button" mat-raised-button
-                  (click)="resetAnimation('slider');matchUser(currentMatchedUser.uid);getNextUser()">
+                  (click)="resetAnimation('slider');matchUser(currentMatchedUser);getNextUser()">
             MindMatch
           </button>
           <button class="submit-button" mat-raised-button
-                  (click)="resetAnimation('pop');rejectUser(currentMatchedUser.uid);getNextUser()">
+                  (click)="resetAnimation('pop');rejectUser(currentMatchedUser);getNextUser()">
             Nah
           </button>
         </div>

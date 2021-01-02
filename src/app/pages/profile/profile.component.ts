@@ -4,6 +4,7 @@ import {UserService} from '../../services/user/user.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthService} from '../../services/auth/auth.service';
+import {ChatService} from '../../services/chat/chat.service';
 
 @Component({
   selector: 'app-profile',
@@ -17,9 +18,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
   editable = true;
   matchedUsers = [];
 
-  constructor(private userService: UserService, private fb: FormBuilder, private router: Router, private authService: AuthService) {
+  constructor(private userService: UserService,
+              private fb: FormBuilder,
+              private router: Router,
+              private authService: AuthService,
+              private cs: ChatService) {
     this.destroy$ = new Subject<boolean>();
-
   }
 
   signUserOut(): void {
@@ -38,6 +42,16 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.matchedUsers = matches;
     });
     this.updateForm();
+  }
+
+  async initializeChat(userId: string): Promise<boolean> {
+    let chatId;
+    await this.cs.checkChatExistence(userId).then(rightChat => chatId = rightChat);
+    if (chatId !== null) {
+      return this.router.navigate(['chat', chatId]);
+    } else {
+     return await this.cs.create(userId);
+    }
   }
 
   updateForm(): void {
