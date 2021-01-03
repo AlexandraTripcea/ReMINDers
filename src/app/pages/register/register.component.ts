@@ -86,7 +86,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
         gender: this.controls.gender.value,
         email: this.controls.email.value,
         ID: this.userID,
-        matches: ''
+        matches: '',
+        rejects: '',
+        chats: '',
+        likes: ''
       }).then(() => {
         this.succes = true;
         setTimeout(() => {

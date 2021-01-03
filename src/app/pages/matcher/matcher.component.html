@@ -27,7 +27,7 @@
         </div>
         <div class="controls">
           <button class="submit-button" mat-raised-button
-                  (click)="resetAnimation('slider');matchUser(currentMatchedUser);getNextUser()">
+                  (click)="resetAnimation('slider');addPossibleMatch(currentMatchedUser);getNextUser()">
             MindMatch
           </button>
           <button class="submit-button" mat-raised-button
@@ -41,6 +41,6 @@
   </ng-template>
 </div>
 
-<div [@fader] *ngIf="spinnerDissapears && matchedUserCounter === matchedUsers.length" class="match-card">
+<div [@fader] *ngIf="spinnerDissapears && matchedUserCounter === matchedUsers.length">
   <p class="mindmatch-title">You've ran out of potential MindMatches, but refresh later!</p>
 </div>

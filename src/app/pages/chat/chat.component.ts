@@ -22,9 +22,7 @@ export class ChatComponent implements OnInit {
 
   ngOnInit(): void {
     const chatId = this.route.snapshot.paramMap.get('id');
-    const source = this.cs.get(chatId);
-    this.chat$ = this.cs.joinUsers(source);
-
+    this.chat$ = this.cs.get(chatId);
   }
 
   submit(chatId): void {
@@ -32,7 +30,7 @@ export class ChatComponent implements OnInit {
     this.newMsg = '';
   }
 
-  trackByCreated(i, msg) {
+  trackByCreated(i, msg): number {
     return msg.createdAt;
   }
 }

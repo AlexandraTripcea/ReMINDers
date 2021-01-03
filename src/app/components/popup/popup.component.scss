@@ -1,8 +1,9 @@
-@import "../../../mindmatch-theme";
+@import "../../../_variable";
 
 .modal-dialog {
   top: 40%;
   bottom: 50%;
+  position: absolute;
 }
 
 .modal-content {

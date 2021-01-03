@@ -20,20 +20,7 @@ export class AuthService implements OnDestroy {
       }
     });
   }
-  // constructor(
-  //   private auth: AngularFireAuth,
-  //   private afs: AngularFirestore,
-  // ) {
-  //   this.user$ = this.auth.authState.pipe(
-  //     switchMap(user => {
-  //       if (user) {
-  //         return this.afs.doc<any>(`users/${user.uid}`).valueChanges();
-  //       } else {
-  //         return of(null);
-  //       }
-  //     })
-  //   );
-  // }
+
   signUserIn(credentials: any): Promise<any> {
     return this.auth.signInWithEmailAndPassword(credentials.email, credentials.password);
   }

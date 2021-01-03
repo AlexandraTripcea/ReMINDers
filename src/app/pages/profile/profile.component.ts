@@ -38,7 +38,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
       sexualPref: [''],
     });
     this.currentUser = await this.userService.getCurrentlyLoggedInUserInfo();
-    await this.userService.getMatchedUsers().then(matches => {
+
+    await this.userService.getUserActualMatches().then(matches => {
       this.matchedUsers = matches;
     });
     this.updateForm();
@@ -50,7 +51,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     if (chatId !== null) {
       return this.router.navigate(['chat', chatId]);
     } else {
-     return await this.cs.create(userId);
+      return await this.cs.create(userId);
     }
   }
 

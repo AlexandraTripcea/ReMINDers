@@ -1,8 +1,8 @@
-<!--<div *ngIf="showWelcome" class="welcome-container">-->
-<!--  <mat-label class="mindmatch-title">Let's get acquainted!</mat-label>-->
-<!--  <button mat-raised-button (click)="showWelcome=false;showNickname=true;" class="submit-button">Sounds good!-->
-<!--  </button>-->
-<!--</div>-->
+<div *ngIf="showWelcome" class="welcome-container">
+  <mat-label class="mindmatch-title">Let's get acquainted!</mat-label>
+  <button mat-raised-button (click)="showWelcome=false;showNickname=true;" class="submit-button">Sounds good!
+  </button>
+</div>
 
 <form [formGroup]="registerForm" (submit)="onSubmit()" class="container-fluid">
   <div [@slider]="animationState" class="contact-input-field mindmatch-title" *ngIf="showNickname">
@@ -109,7 +109,7 @@
     </button>
   </div>
 
-  <div class="user-pass-form mindmatch-title">
+  <div class="user-pass-form mindmatch-title" *ngIf="showUserPass">
     <mat-form-field>
       <mat-label>Email</mat-label>
       <input matInput type="text" id="email" name="email" formControlName="email">

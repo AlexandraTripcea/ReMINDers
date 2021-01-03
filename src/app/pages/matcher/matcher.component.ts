@@ -14,6 +14,7 @@ export class MatcherComponent implements OnInit, OnDestroy {
   users = [];
   path = '/users';
   private currentUser: any;
+  private currentUserId: any;
   matchedUsers = [];
   private destroy$: Subject<boolean>;
   spinnerDissapears = false;
@@ -23,11 +24,12 @@ export class MatcherComponent implements OnInit, OnDestroy {
   dummyarray = ['Dummy', 'Dummy', 'Dummy', 'Dummy', 'Dummy'];
 
   /*TODO:
+  -match popup
+  -listen to both promises at match time
+  -Add and use loginid and currentuser to auth service
     -password validators
     -check wtf is jwt
     -questions
-    -chat
-    -UI and responsive
     -homepage
     -register age field
     -drawer/sidebar
@@ -40,6 +42,7 @@ export class MatcherComponent implements OnInit, OnDestroy {
 
   async ngOnInit(): Promise<void> {
     this.currentUser = await this.userService.getCurrentlyLoggedInUserInfo();
+    this.currentUserId = JSON.parse(localStorage.getItem('loggedInUser')).uid;
     await this.userService.getMatchedUsers().then(matches => {
       this.matchedUsers = matches;
       this.spinnerDissapears = true;
@@ -62,8 +65,25 @@ export class MatcherComponent implements OnInit, OnDestroy {
     return this.currentUser.sexualPref;
   }
 
-  matchUser(newMatch: any): void {
-    this.userService.addUserMatch({uid: newMatch.uid, nickname: newMatch.data.nickname, gender: newMatch.data.gender});
+  addPossibleMatch(possibleMatch: any): void {
+    console.log(possibleMatch)
+    if (possibleMatch.data.likes.indexOf(this.currentUserId) !== -1) {
+      this.userService.addUserLike(possibleMatch.uid).catch(err => console.log(err));
+      this.userService.addUserMatch(
+        {
+          uid: possibleMatch.uid,
+          nickname: possibleMatch.data.nickname,
+          gender: possibleMatch.data.gender
+        }, this.currentUserId).catch(err => console.log(err));
+      this.userService.addUserMatch(
+        {
+          uid: this.currentUserId,
+          nickname: this.currentUser.nickname,
+          gender: this.currentUser.gender
+        }, possibleMatch.uid).catch(err => console.log(err));
+    } else {
+      this.userService.addUserLike(possibleMatch.uid).catch(err => console.log(err));
+    }
   }
 
   rejectUser(newReject: any): void {

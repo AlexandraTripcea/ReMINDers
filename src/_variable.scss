@@ -1,0 +1,30 @@
+@import "~@angular/material/theming";
+
+$mindmatch-primary: (
+  100:#c489e2,
+  200:#785589,
+  contrast:(
+    300: #4b3456
+  )
+);
+
+$mindmatch-accent: (
+  100:#ffead0,
+  200:#e0ceb7,
+  contrast:(
+    300:#d1c2aa
+  )
+);
+
+$ReMINDers-primary: mat-palette($mindmatch-primary);
+$ReMINDers-accent: mat-palette($mat-amber, 300, 100, 50);
+
+$ReMINDers-warn: mat-palette($mat-red);
+
+$ReMINDers-theme: mat-light-theme((
+  color: (
+    primary: $ReMINDers-primary,
+    accent: $ReMINDers-accent,
+    warn: $ReMINDers-warn,
+  )
+));

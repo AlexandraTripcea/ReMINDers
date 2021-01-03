@@ -23,7 +23,7 @@ export class ChatService implements OnDestroy {
     this.destroy$ = new Subject<boolean>();
   }
 
-  get(chatId): any {
+  get(chatId): Observable<any> {
     return this.afs
       .collection<any>('chats')
       .doc(chatId)
@@ -36,18 +36,18 @@ export class ChatService implements OnDestroy {
   }
 
   async checkChatExistence(userId: string): Promise<string> {
-    let rightChat = null;
+    let rightChat: string = null;
     await this.afs.collection('users')
       .doc(this.auth.getLoginId())
       .get()
       .toPromise<any>().then(data => {
         data.data().chats.forEach((chat) => {
-          if (chat.matchedUser === userId) {
-            rightChat = chat;
+          if (chat.matchedUsers.indexOf(userId) !== -1) {
+            rightChat = chat.id;
           }
         });
       });
-    return rightChat !== null ? rightChat.id : null;
+    return rightChat !== null ? rightChat : null;
   }
 
   async create(userId: string): Promise<boolean> {
@@ -61,16 +61,20 @@ export class ChatService implements OnDestroy {
     };
     const docRef = await this.afs.collection('chats').add(data);
     this.afs.collection('users')
-      .doc(this.auth.getLoginId())
-      .update({chats: FieldValue.arrayUnion({id: docRef.id, matchedUser: userId})});
+      .doc(uid)
+      .update({chats: FieldValue.arrayUnion({id: docRef.id, matchedUsers: [uid, userId]})});
+    this.afs.collection('users')
+      .doc(userId)
+      .update({chats: FieldValue.arrayUnion({id: docRef.id, matchedUsers: [uid, userId]})});
     return this.router.navigate(['chat', docRef.id]);
   }
 
-  async sendMessage(chatId, content): Promise<void> {
+  async sendMessage(chatId: string, content: string): Promise<void> {
     const uid = await this.auth.getLoginId();
-
+    let nickname = '';
+    await this.userService.getCurrentlyLoggedInUserInfo().then(loggedInUser => nickname = loggedInUser.nickname);
     const data = {
-      uid,
+      nickname,
       content,
       createdAt: Date.now()
     };
@@ -81,33 +85,6 @@ export class ChatService implements OnDestroy {
         messages: FieldValue.arrayUnion(data)
       });
     }
-  }
-
-  joinUsers(chat$: Observable<any>): Observable<any> {
-    let chat;
-    const joinKeys = {};
-    return chat$.pipe(
-      switchMap(c => {
-        // Unique User IDs
-        chat = c;
-        const uids = Array.from(new Set(c.messages.map(v => v.uid)));
-
-        // Firestore User Doc Reads
-        const userDocs = uids.map(u =>
-          this.afs.doc(`users/${u}`).valueChanges()
-        );
-
-        return userDocs.length ? combineLatest(userDocs) : of([]);
-      }),
-      map(arr => {
-        arr.forEach(v => (joinKeys[(v as any).uid] = v));
-        chat.messages = chat.messages.map(v => {
-          return {...v, user: joinKeys[v.uid]};
-        });
-
-        return chat;
-      })
-    );
   }
 
   ngOnDestroy(): void {
