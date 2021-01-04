@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {Subject} from 'rxjs';
 import {UserService} from '../../services/user/user.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
@@ -9,7 +9,8 @@ import {ChatService} from '../../services/chat/chat.service';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+  styleUrls: ['./profile.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ProfileComponent implements OnInit, OnDestroy {
   private destroy$: Subject<boolean>;
@@ -112,6 +113,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
     } else {
       return 'true';
     }
+  }
+
+  onFileChanged(event): void {
+    let selectedFile: any;
+    selectedFile = event.target.files[0];
+    console.log(event);
+    this.userService.savePhoto(selectedFile);
   }
 
   ngOnDestroy(): void {

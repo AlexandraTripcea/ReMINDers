@@ -125,6 +125,12 @@ export class UserService implements OnDestroy {
     return currentUser;
   }
 
+  savePhoto(uploadData: any): void {
+    const storageRef = firebase.storage().ref();
+    const imageRef = storageRef.child('profileimages/' + this.auth.getLoginId() + '/profileImage.jpg');
+    imageRef.put(uploadData);
+  }
+
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
