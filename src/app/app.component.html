@@ -1,3 +1,17 @@
-<app-navbar></app-navbar>
+<mat-sidenav-container *ngIf="isLoggedIn$ | async">
+  <mat-sidenav #sidenav mode="side">
+    <div class="nav-item mindmatch-font mr-2" *ngFor="let option of sideNavOptions">
+      <a href="{{option.path}}">{{option.name}}</a>
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div>
+      <button (click)="sidenav.toggle()" mat-mini-fab color="primary" aria-label="Example icon button with a menu icon">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
 <!-- main content container -->
+
 <router-outlet></router-outlet>

@@ -10,6 +10,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatIconModule} from '@angular/material/icon';
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import {MatIconModule} from '@angular/material/icon';
     MatCardModule,
     MatTabsModule,
     MatIconModule,
+    MatSidenavModule,
   ],
   exports: [
     MatButtonModule,
@@ -40,6 +42,8 @@ import {MatIconModule} from '@angular/material/icon';
     MatTabsModule,
     MatCardModule,
     MatExpansionModule,
+    MatIconModule,
+    MatSidenavModule,
   ]
 })
 export class MatUiModule { }
