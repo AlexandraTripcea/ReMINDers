@@ -1,7 +1,8 @@
 import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {UserService} from '../../services/user/user.service';
-import {Subject} from 'rxjs';
+import {BehaviorSubject, from, Observable, Subject} from 'rxjs';
 import {fader, sliderNpopper} from '../../../animations';
+import {Behavior} from 'popper.js';
 
 @Component({
   selector: 'app-matcher',
@@ -11,33 +12,32 @@ import {fader, sliderNpopper} from '../../../animations';
 })
 export class MatcherComponent implements OnInit, OnDestroy {
   matchedUserCounter = 0;
-  users = [];
-  path = '/users';
   private currentUser: any;
   private currentUserId: any;
   matchedUsers = [];
   private destroy$: Subject<boolean>;
   spinnerDissapears = false;
   currentMatchedUser: any;
-  changeDetectorRef: ChangeDetectorRef;
+  private changeDetectorRef: ChangeDetectorRef;
   animationState = 'slider';
   dummyarray = ['Dummy', 'Dummy', 'Dummy', 'Dummy', 'Dummy'];
+  matchMessage = '';
+  matchMade$: BehaviorSubject<boolean>;
 
   /*TODO:
-  -match popup
-  -listen to both promises at match time
-  -Add and use loginid and currentuser to auth service
+  -check wtf is jwt
+  -USE ERROR HANDLER EVERYWHERE
     -password validators
-    -check wtf is jwt
     -questions
     -homepage
-    -register age field
+    -register age field, button, and userpass form
     -drawer/sidebar
     -handle transitions for register (jumping artifact)
    */
   constructor(private userService: UserService, changeDetectorRef: ChangeDetectorRef) {
     this.changeDetectorRef = changeDetectorRef;
     this.destroy$ = new Subject<boolean>();
+    this.matchMade$ = new BehaviorSubject(false);
   }
 
   async ngOnInit(): Promise<void> {
@@ -50,12 +50,14 @@ export class MatcherComponent implements OnInit, OnDestroy {
     this.currentMatchedUser = this.matchedUsers[0];
   }
 
-  resetAnimation(state: string): void {
+  resetAnimationAndMessage(state: string): void {
+    this.matchMessage = this.currentMatchedUser.data.nickname + ' likes you too!';
     this.animationState = state;
     this.changeDetectorRef.detectChanges();
   }
 
   getNextUser(): void {
+    this.matchMade$.next(false);
     this.matchedUserCounter++;
     this.currentMatchedUser = this.matchedUsers[this.matchedUserCounter];
     this.changeDetectorRef.detectChanges();
@@ -65,22 +67,25 @@ export class MatcherComponent implements OnInit, OnDestroy {
     return this.currentUser.sexualPref;
   }
 
-  addPossibleMatch(possibleMatch: any): void {
-    console.log(possibleMatch)
+  async addPossibleMatch(possibleMatch: any): Promise<void> {
+    const promisesSet = [];
     if (possibleMatch.data.likes.indexOf(this.currentUserId) !== -1) {
-      this.userService.addUserLike(possibleMatch.uid).catch(err => console.log(err));
-      this.userService.addUserMatch(
+      promisesSet.push(this.userService.addUserLike(possibleMatch.uid));
+      promisesSet.push(this.userService.addUserMatch(
         {
           uid: possibleMatch.uid,
           nickname: possibleMatch.data.nickname,
           gender: possibleMatch.data.gender
-        }, this.currentUserId).catch(err => console.log(err));
-      this.userService.addUserMatch(
+        }, this.currentUserId));
+      promisesSet.push(this.userService.addUserMatch(
         {
           uid: this.currentUserId,
           nickname: this.currentUser.nickname,
           gender: this.currentUser.gender
-        }, possibleMatch.uid).catch(err => console.log(err));
+        }, possibleMatch.uid));
+      await Promise.all(promisesSet).then(() => {
+          this.matchMade$.next(true);
+        }).catch(err => console.log(err));
     } else {
       this.userService.addUserLike(possibleMatch.uid).catch(err => console.log(err));
     }
@@ -93,5 +98,6 @@ export class MatcherComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+    this.matchMade$.complete();
   }
 }

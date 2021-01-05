@@ -105,16 +105,16 @@
        || !controls.question4?.valid"
             class="submit-button"
             (click)="showAnswers=false;showUserPass=true;"
-            *ngIf="showAnswers" mat-raised-button>Time for the email and password
+            *ngIf="showAnswers" mat-raised-button>Next
     </button>
   </div>
 
-  <div class="user-pass-form mindmatch-title" *ngIf="showUserPass">
+  <div [@slider]="animationState" class="user-pass-form mindmatch-title" *ngIf="showUserPass">
     <mat-form-field>
       <mat-label>Email</mat-label>
       <input matInput type="text" id="email" name="email" formControlName="email">
     </mat-form-field>
-    <div *ngIf="!controls.email?.valid">
+    <div *ngIf="!controls.email?.valid && controls.email?.touched">
       <div *ngIf="submitted && controls.email.errors.required">
         <p class="warning">Please provide your email</p>
       </div>
@@ -127,7 +127,7 @@
       <mat-label>Password</mat-label>
       <input matInput type="password" id="password" name="password" formControlName="password">
     </mat-form-field>
-    <div *ngIf="!controls.password?.valid">
+    <div *ngIf="!controls.password?.valid && controls.password?.touched">
       <div *ngIf="submitted && controls.password.errors.required">
         <p class="warning">Please do provide a password</p>
       </div>

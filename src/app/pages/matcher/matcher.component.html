@@ -2,15 +2,17 @@
 </app-spinner>
 <div class="container-fluid" *ngIf="spinnerDissapears && matchedUserCounter !== matchedUsers.length">
   <ng-template ngFor let-user [ngForOf]="[currentMatchedUser]">
+
     <mat-card id="#matchCard" [@sliderNpopper]="animationState" class="match-card m-4">
       <!--      Name, age, gender, location-->
       <mat-card-header>
         <div class="title-container">
-        <p class="match-name mindmatch-title"
-           [routerLink]="['/userprofile', currentMatchedUser.data.nickname]">{{currentMatchedUser.data.nickname}}, {{currentMatchedUser.data.age}}
-        </p>
-        <p class="match-location mindmatch-font">{{currentMatchedUser.data.home}}</p>
-        <p *ngIf="userSexualPref==='Both'" class="match-gender mindmatch-font">{{currentMatchedUser.data.gender}}</p>
+          <p class="match-name mindmatch-title"
+             [routerLink]="['/userprofile', currentMatchedUser.data.nickname]">{{currentMatchedUser.data.nickname}}
+            , {{currentMatchedUser.data.age}}
+          </p>
+          <p class="match-location mindmatch-font">{{currentMatchedUser.data.home}}</p>
+          <p *ngIf="userSexualPref==='Both'" class="match-gender mindmatch-font">{{currentMatchedUser.data.gender}}</p>
         </div>
       </mat-card-header>
       <!--      Name, age, gender, location-->
@@ -27,11 +29,11 @@
         </div>
         <div class="controls">
           <button class="submit-button" mat-raised-button
-                  (click)="resetAnimation('slider');addPossibleMatch(currentMatchedUser);getNextUser()">
+                  (click)="resetAnimationAndMessage('slider');addPossibleMatch(currentMatchedUser);getNextUser()">
             MindMatch
           </button>
           <button class="submit-button" mat-raised-button
-                  (click)="resetAnimation('pop');rejectUser(currentMatchedUser);getNextUser()">
+                  (click)="resetAnimationAndMessage('pop');rejectUser(currentMatchedUser);getNextUser()">
             Nah
           </button>
         </div>
@@ -44,3 +46,5 @@
 <div [@fader] *ngIf="spinnerDissapears && matchedUserCounter === matchedUsers.length">
   <p class="mindmatch-title">You've ran out of potential MindMatches, but refresh later!</p>
 </div>
+
+<app-popup *ngIf="matchMade$ | async" [popupMessage]="matchMessage"></app-popup>

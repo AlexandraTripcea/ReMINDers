@@ -1,8 +1,6 @@
 import {Injectable, OnDestroy} from '@angular/core';
-import {Observable, of, Subject} from 'rxjs';
+import {Subject} from 'rxjs';
 import {AngularFireAuth} from '@angular/fire/auth';
-import {first, switchMap} from 'rxjs/operators';
-import {AngularFirestore} from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +9,7 @@ export class AuthService implements OnDestroy {
 
   private destroy$: Subject<boolean>;
   private loggedInId = '';
+
   constructor(private auth: AngularFireAuth) {
     this.destroy$ = new Subject<boolean>();
     this.auth.onAuthStateChanged(user => {

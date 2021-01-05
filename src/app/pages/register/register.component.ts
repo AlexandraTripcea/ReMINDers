@@ -35,7 +35,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   succes = false;
 
   constructor(private fb: FormBuilder,
-              private authService: AuthService,
+              private auth: AuthService,
               private userService: UserService, private router: Router,
               private errHandler: ErrorHandlerService,
               changeDetectorRef: ChangeDetectorRef) {
@@ -54,6 +54,12 @@ export class RegisterComponent implements OnInit, OnDestroy {
         password: ['', [Validators.required, Validators.minLength(8)]]
       }
     );
+  }
+
+  ngOnInit(): void {
+    if (this.auth.getLoginStatus()) {
+      this.router.navigate(['/profile']);
+    }
   }
 
   resetAnimation(state: string): void {
@@ -76,7 +82,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
         }
       });
       let currentUser;
-      await this.authService.registerNewUser({email: this.controls.email.value, password: this.controls.password.value})
+      await this.auth.registerNewUser({email: this.controls.email.value, password: this.controls.password.value})
         .then(registerData => currentUser = registerData.user.uid)
         .catch(error => this.errorMessage = this.errHandler.handleError(error.code));
       await this.userService.storeToFirestoreAtDoc(currentUser, '/users', {
@@ -86,14 +92,15 @@ export class RegisterComponent implements OnInit, OnDestroy {
         gender: this.controls.gender.value,
         email: this.controls.email.value,
         ID: this.userID,
-        matches: '',
-        rejects: '',
-        chats: '',
-        likes: ''
+        matches: [],
+        rejects: [],
+        chats: [],
+        likes: [],
+        profileImg: ''
       }).then(() => {
         this.succes = true;
         setTimeout(() => {
-            this.authService.signUserOut();
+            this.auth.signUserOut();
             this.router.navigate(['login'], {queryParams: {registered: true}});
           }
           , 1000);
@@ -101,8 +108,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnInit(): void {
-  }
 
   ngOnDestroy(): void {
     this.destroy$.next();

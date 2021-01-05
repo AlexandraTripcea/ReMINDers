@@ -4,9 +4,6 @@ import {AuthService} from '../../services/auth/auth.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ErrorHandlerService} from '../../services/error-handler/error-handler.service';
-import $ from 'jquery';
-
-declare var $: $;
 
 @Component({
   selector: 'app-login',

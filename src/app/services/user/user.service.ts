@@ -96,8 +96,8 @@ export class UserService implements OnDestroy {
         .limit(50).get().then((data: any) => data
           .forEach((newUser) => {
             if (newUser.data().email !== currentUser.email
-              && alreadyMatchedUsers.findIndex(user => user.uid === newUser.id) === -1
-              && rejectedUsers.findIndex(user => user.uid === newUser.id) === -1) {
+              && alreadyMatchedUsers.findIndex(user => user === newUser.id) === -1
+              && rejectedUsers.findIndex(user => user === newUser.id) === -1) {
               rightGenderUsers.push({data: newUser.data(), uid: newUser.id});
             }
           }));
@@ -125,10 +125,17 @@ export class UserService implements OnDestroy {
     return currentUser;
   }
 
-  savePhoto(uploadData: any): void {
+  async savePhoto(uploadData: any): Promise<string> {
     const storageRef = firebase.storage().ref();
-    const imageRef = storageRef.child('profileimages/' + this.auth.getLoginId() + '/profileImage.jpg');
-    imageRef.put(uploadData);
+    const loggedInId = this.auth.getLoginId();
+    let profileImgUrl = '';
+    const imageRef = storageRef.child('profileimages/' + loggedInId + '/profileImage.jpg');
+    await imageRef.put(uploadData).then(async (response) => await response.ref
+      .getDownloadURL().then(url => {
+        profileImgUrl = url;
+      }));
+    await this.firestore.collection('users').doc(loggedInId).update({profileImg: profileImgUrl});
+    return profileImgUrl;
   }
 
   ngOnDestroy(): void {

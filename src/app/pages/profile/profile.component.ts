@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
-import {Subject} from 'rxjs';
+import {fromEvent, Subject} from 'rxjs';
 import {UserService} from '../../services/user/user.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Router} from '@angular/router';
@@ -14,10 +14,12 @@ import {ChatService} from '../../services/chat/chat.service';
 })
 export class ProfileComponent implements OnInit, OnDestroy {
   private destroy$: Subject<boolean>;
-  public currentUser: any;
+  public currentUser = null;
   profileForm: FormGroup;
   editable = true;
   matchedUsers = [];
+  profileImgUrl = '';
+  spinnerDissapears = false;
 
   constructor(private userService: UserService,
               private fb: FormBuilder,
@@ -42,9 +44,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
     await this.userService.getUserActualMatches().then(matches => {
       this.matchedUsers = matches;
+      this.profileImgUrl = this.currentUser.profileImg;
+      this.spinnerDissapears = true;
     });
     this.updateForm();
   }
+
 
   async initializeChat(userId: string): Promise<boolean> {
     let chatId;
@@ -118,8 +123,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
   onFileChanged(event): void {
     let selectedFile: any;
     selectedFile = event.target.files[0];
-    console.log(event);
-    this.userService.savePhoto(selectedFile);
+    if (!!selectedFile && selectedFile.type.split('/')[0] === 'image') {
+      this.userService.savePhoto(selectedFile).then(newProfileImgUrl => {
+        this.profileImgUrl = newProfileImgUrl;
+      });
+    }
   }
 
   ngOnDestroy(): void {
