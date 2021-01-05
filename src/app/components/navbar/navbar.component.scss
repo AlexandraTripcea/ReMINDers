@@ -1,11 +1,14 @@
 @import '../../../_variable.scss';
 
-.navbar {
-  background-color: mat-color($ReMINDers-primary, 200);
+mat-sidenav-container {
+  height: 100%;
+  position: absolute;
 }
 
-.nav-item {
-  > a {
-    color: white;
-  }
+mat-sidenav, mat-sidenav-content {
+  padding: 16px;
+}
+
+mat-sidenav {
+  background-color: lightcoral;
 }

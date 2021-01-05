@@ -16,6 +16,7 @@ import {ErrorHandlerService} from '../../services/error-handler/error-handler.se
 export class RegisterComponent implements OnInit, OnDestroy {
   private destroy$: Subject<boolean>;
   registerForm: FormGroup;
+  userPassForm: FormGroup;
   submitted = false;
   showNickname = false;
   showHome = false;
@@ -50,10 +51,12 @@ export class RegisterComponent implements OnInit, OnDestroy {
         question2: ['', Validators.required],
         question3: ['', Validators.required],
         question4: ['', Validators.required],
-        email: ['', [Validators.required, Validators.pattern('[^@ \\t\\r\\n]+@[^@ \\t\\r\\n]+\\.[^@ \\t\\r\\n]+')]],
-        password: ['', [Validators.required, Validators.minLength(8)]]
       }
     );
+    this.userPassForm = this.fb.group({
+      email: ['', [Validators.required, Validators.pattern('[^@ \\t\\r\\n]+@[^@ \\t\\r\\n]+\\.[^@ \\t\\r\\n]+')]],
+      password: ['', [Validators.required, Validators.minLength(8)]]
+    });
   }
 
   ngOnInit(): void {
@@ -71,9 +74,13 @@ export class RegisterComponent implements OnInit, OnDestroy {
     return this.registerForm.controls;
   }
 
+  get userPassControls(){
+    return this.userPassForm.controls;
+  }
+
   async onSubmit(): Promise<void> {
     this.submitted = true;
-    if (this.registerForm.invalid) {
+      if (this.userPassForm.invalid) {
       return;
     } else {
       Object.keys(this.registerForm.controls).forEach((key: string) => {
@@ -82,7 +89,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
         }
       });
       let currentUser;
-      await this.auth.registerNewUser({email: this.controls.email.value, password: this.controls.password.value})
+      await this.auth.registerNewUser({email: this.userPassControls.email.value, password: this.userPassControls.password.value})
         .then(registerData => currentUser = registerData.user.uid)
         .catch(error => this.errorMessage = this.errHandler.handleError(error.code));
       await this.userService.storeToFirestoreAtDoc(currentUser, '/users', {
@@ -90,7 +97,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
         home: this.controls.home.value,
         sexualPref: this.controls.sexualPref.value,
         gender: this.controls.gender.value,
-        email: this.controls.email.value,
+        email: this.userPassControls.email.value,
         ID: this.userID,
         matches: [],
         rejects: [],

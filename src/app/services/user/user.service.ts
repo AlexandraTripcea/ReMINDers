@@ -33,8 +33,8 @@ export class UserService implements OnDestroy {
       .update({rejects: FieldValue.arrayUnion(newUserReject)});
   }
 
-  getFromFirestore(path: string): Observable<any> {
-    return this.firestore.collection(path).valueChanges();
+  getFromFirestore(path: string, docId: string): Promise<any> {
+    return this.firestore.collection(path).doc(docId).get().toPromise();
   }
 
   getUserFromFirestore(docId: any): Observable<any> {
@@ -53,9 +53,9 @@ export class UserService implements OnDestroy {
   }
 
   async getUserActualMatches(): Promise<any> {
-    let actualUser;
-    await this.getCurrentlyLoggedInUserInfo().then(user => actualUser = user).catch(err => console.log(err));
-    return actualUser.matches;
+    let actualUserMatches;
+    await this.getCurrentlyLoggedInUserInfo().then(user => actualUserMatches = user.data.matches).catch(err => console.log(err));
+    return actualUserMatches;
   }
 
   private matchUsers(allUsers: any, idToMatch: string): any {
@@ -77,7 +77,8 @@ export class UserService implements OnDestroy {
 
   async getMatchedUsers(): Promise<any> {
     const rightGenderUsers = [];
-    const currentUser = await this.getCurrentlyLoggedInUserInfo();
+    let currentUser;
+    await this.getCurrentlyLoggedInUserInfo().then(loggedInUser => currentUser = loggedInUser.data);
     let rejectedUsers = [];
     let alreadyMatchedUsers = [];
     await this.firestore.collection('users')
@@ -120,7 +121,7 @@ export class UserService implements OnDestroy {
     await this.getUserFromFirestore(this.auth.getLoginId())
       .toPromise()
       .then(user => {
-        currentUser = user.data();
+        currentUser = {data: user.data(), uid: user.id};
       });
     return currentUser;
   }

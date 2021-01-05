@@ -1,7 +1,15 @@
-<nav id="nav" class="navbar navbar-expand">
-  <div class="navbar-nav">
-    <div class="nav-item mindmatch-font mr-2" *ngFor="let option of navbarOptions">
+<mat-sidenav-container *ngIf="isLoggedIn">
+  <mat-sidenav #sidenav mode="side">
+    <div class="nav-item mindmatch-font mr-2" *ngFor="let option of sideNavOptions">
       <a href="{{option.path}}">{{option.name}}</a>
     </div>
-  </div>
-</nav>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div>
+      <button (click)="sidenav.toggle()" mat-mini-fab color="primary" aria-label="Example icon button with a menu icon">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+<!-- main content container -->

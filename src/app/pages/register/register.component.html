@@ -4,7 +4,7 @@
   </button>
 </div>
 
-<form [formGroup]="registerForm" (submit)="onSubmit()" class="container-fluid">
+<form [formGroup]="registerForm" class="container-fluid">
   <div [@slider]="animationState" class="contact-input-field mindmatch-title" *ngIf="showNickname">
     <mat-form-field *ngIf="showNickname">
       <mat-label>What's your nickname?</mat-label>
@@ -109,16 +109,16 @@
     </button>
   </div>
 
-  <div [@slider]="animationState" class="user-pass-form mindmatch-title" *ngIf="showUserPass">
+  <div [@slider]="animationState" [formGroup]="userPassForm" class="user-pass-form mindmatch-title" *ngIf="showUserPass">
     <mat-form-field>
       <mat-label>Email</mat-label>
       <input matInput type="text" id="email" name="email" formControlName="email">
     </mat-form-field>
-    <div *ngIf="!controls.email?.valid && controls.email?.touched">
-      <div *ngIf="submitted && controls.email.errors.required">
+    <div *ngIf="submitted && !userPassControls.email?.valid">
+      <div *ngIf="userPassControls.email.errors.required">
         <p class="warning">Please provide your email</p>
       </div>
-      <div *ngIf="submitted && controls.email.errors.pattern">
+      <div *ngIf="userPassControls.email.errors.pattern">
         <p class="warning">We both know that's not an email</p>
       </div>
     </div>
@@ -127,20 +127,23 @@
       <mat-label>Password</mat-label>
       <input matInput type="password" id="password" name="password" formControlName="password">
     </mat-form-field>
-    <div *ngIf="!controls.password?.valid && controls.password?.touched">
-      <div *ngIf="submitted && controls.password.errors.required">
+    <div *ngIf="submitted && !userPassControls.password?.valid">
+      <div *ngIf="userPassControls.password.errors.required">
         <p class="warning">Please do provide a password</p>
       </div>
-      <div *ngIf="submitted && controls.password.errors.minLength">
+      <div *ngIf="userPassControls.password.errors.minLength">
         <p class="warning">Password needs to be at least 8 characters long</p>
       </div>
     </div>
+
     <div *ngIf="errorMessage">
       <p class="warning">{{errorMessage}}</p>
     </div>
-    <button mat-raised-button type="submit" class="submit-button">
+
+    <button mat-raised-button (click)="onSubmit()" class="submit-button">
       Start MindMatching!
     </button>
   </div>
+
 </form>
 

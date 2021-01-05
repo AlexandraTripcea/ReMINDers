@@ -25,13 +25,11 @@ export class MatcherComponent implements OnInit, OnDestroy {
   matchMade$: BehaviorSubject<boolean>;
 
   /*TODO:
-  -check wtf is jwt
-  -USE ERROR HANDLER EVERYWHERE
+  -popup profile sidenav responsive
     -password validators
     -questions
     -homepage
-    -register age field, button, and userpass form
-    -drawer/sidebar
+    -register age field, button, and userpass forml
     -handle transitions for register (jumping artifact)
    */
   constructor(private userService: UserService, changeDetectorRef: ChangeDetectorRef) {
@@ -41,8 +39,10 @@ export class MatcherComponent implements OnInit, OnDestroy {
   }
 
   async ngOnInit(): Promise<void> {
-    this.currentUser = await this.userService.getCurrentlyLoggedInUserInfo();
-    this.currentUserId = JSON.parse(localStorage.getItem('loggedInUser')).uid;
+    await this.userService.getCurrentlyLoggedInUserInfo().then(loggedInUser => {
+      this.currentUser = loggedInUser.data;
+      this.currentUserId = loggedInUser.uid;
+    });
     await this.userService.getMatchedUsers().then(matches => {
       this.matchedUsers = matches;
       this.spinnerDissapears = true;
@@ -84,8 +84,8 @@ export class MatcherComponent implements OnInit, OnDestroy {
           gender: this.currentUser.gender
         }, possibleMatch.uid));
       await Promise.all(promisesSet).then(() => {
-          this.matchMade$.next(true);
-        }).catch(err => console.log(err));
+        this.matchMade$.next(true);
+      }).catch(err => console.log(err));
     } else {
       this.userService.addUserLike(possibleMatch.uid).catch(err => console.log(err));
     }

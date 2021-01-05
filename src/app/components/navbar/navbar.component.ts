@@ -1,24 +1,25 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
+import {AuthGuard} from '../../services/auth/auth.guard';
+import {AuthService} from '../../services/auth/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent implements OnInit {
-
-  navbarOptions = [
+export class NavbarComponent {
+  sideNavOptions = [
     {name: 'Home', path: ''},
-    {name: 'Login', path: 'login'},
-    {name: 'Register', path: '/register'},
-    {name: 'Profile', path: '/profile'},
-    {name: 'Matcher', path: '/matcher'}
+    {name: 'Profile', path: '/profile', canActivate: [AuthGuard]},
+    {name: 'Matcher', path: '/matcher', canActivate: [AuthGuard]}
   ];
+  isLoggedIn = false;
 
-  constructor() {
+
+  constructor(private router: Router, private auth: AuthService) {
+    router.events.subscribe(() => {
+      this.isLoggedIn = this.auth.getLoginStatus();
+    });
   }
-
-  ngOnInit(): void {
-  }
-
 }

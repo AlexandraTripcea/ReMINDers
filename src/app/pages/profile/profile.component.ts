@@ -5,6 +5,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthService} from '../../services/auth/auth.service';
 import {ChatService} from '../../services/chat/chat.service';
+import {loggedIn} from '@angular/fire/auth-guard';
 
 @Component({
   selector: 'app-profile',
@@ -40,7 +41,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       home: [''],
       sexualPref: [''],
     });
-    this.currentUser = await this.userService.getCurrentlyLoggedInUserInfo();
+    await this.userService.getCurrentlyLoggedInUserInfo().then(loggedInUser => this.currentUser = loggedInUser.data);
 
     await this.userService.getUserActualMatches().then(matches => {
       this.matchedUsers = matches;

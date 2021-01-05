@@ -72,7 +72,7 @@ export class ChatService implements OnDestroy {
   async sendMessage(chatId: string, content: string): Promise<void> {
     const uid = await this.auth.getLoginId();
     let nickname = '';
-    await this.userService.getCurrentlyLoggedInUserInfo().then(loggedInUser => nickname = loggedInUser.nickname);
+    await this.userService.getCurrentlyLoggedInUserInfo().then(loggedInUser => nickname = loggedInUser.data.nickname);
     const data = {
       nickname,
       content,

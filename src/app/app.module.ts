@@ -18,6 +18,8 @@ import { UserprofileComponent } from './pages/userprofile/userprofile.component'
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { PopupComponent } from './components/popup/popup.component';
 import { ChatComponent } from './pages/chat/chat.component';
+import {NavbarComponent} from './components/navbar/navbar.component';
+import {ChatGuard} from './services/chat/chat.guard';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,7 @@ import { ChatComponent } from './pages/chat/chat.component';
     UserprofileComponent,
     PopupComponent,
     ChatComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +45,7 @@ import { ChatComponent } from './pages/chat/chat.component';
     AngularFirestoreModule.enablePersistence(),
     AppRoutingModule,
   ],
-  providers: [AuthGuard],
+  providers: [AuthGuard, ChatGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {
