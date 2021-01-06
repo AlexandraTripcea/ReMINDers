@@ -4,6 +4,7 @@
 html, body {
   height: 100%;
 }
+
 body {
   margin: 0;
 }
@@ -16,34 +17,40 @@ a:hover {
   color: white;
 }
 
-.warning{
-  color:mat-color($ReMINDers-warn);
+.warning {
+  color: mat-color($ReMINDers-warn);
   font-family: Arial;
 }
 
 
 .mindmatch-font {
   font-family: Roboto;
-  color:white;
+  color: white;
   letter-spacing: 0.5px;
 }
 
 .mindmatch-title {
   font-family: Roboto;
   letter-spacing: 1px;
-  color:black;
+  color: black;
 }
 
 .submit-button {
   margin-top: 2%;
   width: min-content;
+  transition: 0.2s ease-in;
+  background-color: mat-color($ReMINDers-accent, 300);
+}
+
+.submit-button:hover {
+  background-color: mat-color($ReMINDers-accent, 100);
 }
 
 @media only screen and (max-width: 767px) {
   .mindmatch-font {
     font-size: 17px;
   }
-   .warning {
+  .warning {
     font-size: 14px;
   }
   .icon {
@@ -51,6 +58,9 @@ a:hover {
   }
   .mindmatch-title {
     font-size: 22px;
+  }
+  .submit-button {
+    margin-top: 15px;
   }
 }
 
@@ -63,6 +73,10 @@ a:hover {
   }
   .mindmatch-title {
     font-size: 26px;
+  }
+  .submit-button {
+    padding: 20px;
+    font-size: 24px;
   }
 }
 
@@ -89,6 +103,11 @@ a:hover {
   .mindmatch-title {
     font-size: 45px;
   }
+  .submit-button {
+    font-size: 35px;
+    padding: 15px;
+    margin:15px;
+  }
 }
 
 @media only screen and (min-width: 3839px) {
@@ -104,4 +123,10 @@ a:hover {
   .mindmatch-title {
     font-size: 75px;
   }
+  .submit-button {
+    font-size: 50px;
+    padding: 30px;
+    margin:20px;
+  }
+
 }

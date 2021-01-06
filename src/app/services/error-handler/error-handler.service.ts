@@ -14,5 +14,8 @@ export class ErrorHandlerService {
     if (code === 'auth/email-already-in-use') {
       return 'This email is already in use';
     }
+    if (code === '    auth/user-not-found\n') {
+      return 'Your email was not found in our database';
+    }
   }
 }

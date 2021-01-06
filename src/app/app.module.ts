@@ -20,6 +20,7 @@ import { PopupComponent } from './components/popup/popup.component';
 import { ChatComponent } from './pages/chat/chat.component';
 import {NavbarComponent} from './components/navbar/navbar.component';
 import {ChatGuard} from './services/chat/chat.guard';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import {ChatGuard} from './services/chat/chat.guard';
     UserprofileComponent,
     PopupComponent,
     ChatComponent,
-    NavbarComponent
+    NavbarComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     BrowserModule,

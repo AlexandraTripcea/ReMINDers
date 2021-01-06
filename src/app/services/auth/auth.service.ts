@@ -8,14 +8,12 @@ import {AngularFireAuth} from '@angular/fire/auth';
 export class AuthService implements OnDestroy {
 
   private destroy$: Subject<boolean>;
-  private loggedInId = '';
 
   constructor(private auth: AngularFireAuth) {
     this.destroy$ = new Subject<boolean>();
     this.auth.onAuthStateChanged(user => {
       if (!!user) {
         localStorage.setItem('loggedInUser', JSON.stringify({uid: user.uid}));
-        this.loggedInId = user.uid;
       }
     });
   }
@@ -34,12 +32,15 @@ export class AuthService implements OnDestroy {
 
   signUserOut(): Promise<any> {
     localStorage.clear();
-    this.loggedInId = '';
     return this.auth.signOut();
   }
 
   registerNewUser(newUser: any): Promise<any> {
     return this.auth.createUserWithEmailAndPassword(newUser.email, newUser.password);
+  }
+
+  resetPassword(email: string): Promise<any> {
+    return this.auth.sendPasswordResetEmail(email);
   }
 
   ngOnDestroy(): void {

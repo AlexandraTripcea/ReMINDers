@@ -98,7 +98,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
         nickname: this.controls.nickname.value,
         home: this.controls.home.value,
         sexualPref: this.controls.sexualPref.value,
-        birthDate: ['', Validators.required],
+        birthDate: this.controls.birthDate.value,
         gender: this.controls.gender.value,
         email: this.userPassControls.email.value,
         ID: this.userID,
@@ -114,7 +114,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
             this.router.navigate(['login'], {queryParams: {registered: true}});
           }
           , 1000);
-      });
+      }).catch(() => this.auth.signUserOut());
     }
   }
 

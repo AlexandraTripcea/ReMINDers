@@ -17,7 +17,7 @@
 
   <div class="contact-input-field mt-5 mindmatch-font">
     <mat-form-field color="accent">
-    <mat-label>Password</mat-label>
+      <mat-label>Password</mat-label>
       <input matInput type="password" id="password" name="password" formControlName="password">
     </mat-form-field>
     <div *ngIf="!controls.password?.valid">
@@ -28,7 +28,8 @@
     <div *ngIf="errorMessage">
       <p class="warning">{{errorMessage}}</p>
     </div>
-    <a class="mindmatch-font"  href="/register">Don't have an account? Register now!</a>
+    <a class="mindmatch-font forgotten-pass" href="/reset-password"> Forgotten password?</a>
+    <a class="mindmatch-font register" href="/register">Don't have an account? Register now!</a>
     <button mat-raised-button type="submit" class="submit-button">Log in</button>
   </div>
 
@@ -36,4 +37,5 @@
   <input class="issatrap" type="text" id="trappy" name="trappy" formControlName="trappy">
 </form>
 
-<app-popup *ngIf="registeredSuccesfully" [popupMessage]="'You have been registered succesfully, so login and start MindMatching!'"></app-popup>
+<app-popup *ngIf="registeredSuccesfully"
+           [popupMessage]="'You have been registered succesfully, so login and start MindMatching!'"></app-popup>
