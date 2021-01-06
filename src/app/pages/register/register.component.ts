@@ -22,6 +22,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   showHome = false;
   showSexualPref = false;
   showGender = false;
+  showBirthdate = false;
   showAnswers = false;
   showWelcome = true;
   showUserPass = false;
@@ -46,6 +47,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
         nickname: ['', [Validators.required, Validators.minLength(3)]],
         home: ['', Validators.required],
         gender: ['', Validators.required],
+        birthDate: ['', Validators.required],
         sexualPref: ['', Validators.required],
         question1: ['', Validators.required],
         question2: ['', Validators.required],
@@ -70,17 +72,17 @@ export class RegisterComponent implements OnInit, OnDestroy {
     this.changeDetectorRef.detectChanges();
   }
 
-  get controls() {
+  get controls(): any {
     return this.registerForm.controls;
   }
 
-  get userPassControls(){
+  get userPassControls(): any {
     return this.userPassForm.controls;
   }
 
   async onSubmit(): Promise<void> {
     this.submitted = true;
-      if (this.userPassForm.invalid) {
+    if (this.userPassForm.invalid) {
       return;
     } else {
       Object.keys(this.registerForm.controls).forEach((key: string) => {
@@ -96,6 +98,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
         nickname: this.controls.nickname.value,
         home: this.controls.home.value,
         sexualPref: this.controls.sexualPref.value,
+        birthDate: ['', Validators.required],
         gender: this.controls.gender.value,
         email: this.userPassControls.email.value,
         ID: this.userID,

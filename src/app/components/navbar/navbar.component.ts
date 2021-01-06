@@ -16,10 +16,13 @@ export class NavbarComponent {
   ];
   isLoggedIn = false;
 
-
   constructor(private router: Router, private auth: AuthService) {
     router.events.subscribe(() => {
       this.isLoggedIn = this.auth.getLoginStatus();
     });
+  }
+
+  signUserOut(): void {
+    this.auth.signUserOut();
   }
 }

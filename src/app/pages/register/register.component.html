@@ -51,6 +51,7 @@
   </div>
 
 
+
   <div [@slider]="animationState" class="contact-input-field mindmatch-title" *ngIf="showSexualPref">
     <mat-label>You are interested in..</mat-label>
     <mat-radio-group class="radio-container" formControlName="sexualPref">
@@ -60,10 +61,32 @@
     </mat-radio-group>
     <div class="actions-container">
       <button mat-raised-button [disabled]="!controls.sexualPref?.valid" class="submit-button"
-              (click)="resetAnimation('next');showAnswers=true; showSexualPref=false" mat-button>Next
+              (click)="resetAnimation('next');showBirthdate=true; showSexualPref=false" mat-button>Next
       </button>
       <button mat-raised-button class="submit-button"
               (click)="resetAnimation('prev');showSexualPref=false;showGender=true" mat-button>Prev
+      </button>
+    </div>
+  </div>
+
+  <div [@slider]="animationState" class="contact-input-field mindmatch-title" *ngIf="showBirthdate">
+    <mat-label>Your birthdate is..</mat-label>
+    <mat-form-field appearance="fill">
+      <mat-label>Choose a date</mat-label>
+      <!-- #docregion toggle -->
+      <input matInput formControlName="birthDate" [matDatepicker]="picker">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker>
+      </mat-datepicker>
+      <!-- #enddocregion toggle -->
+    </mat-form-field>
+    <div class="actions-container">
+      <button mat-raised-button [disabled]="!controls.birthDate?.valid" class="submit-button"
+              (click)="resetAnimation('next');showAnswers=true;showBirthdate=false"
+              mat-button>Next
+      </button>
+      <button mat-raised-button class="submit-button" (click)="resetAnimation('prev');showGender=false;showHome=true"
+              mat-button>Prev
       </button>
     </div>
   </div>

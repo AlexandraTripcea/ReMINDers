@@ -11,6 +11,10 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
+import {MatTooltipModule} from '@angular/material/tooltip';
+
 
 @NgModule({
   declarations: [
@@ -29,6 +33,9 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     MatTabsModule,
     MatIconModule,
     MatSidenavModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatTooltipModule,
   ],
   exports: [
     MatButtonModule,
@@ -44,6 +51,9 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     MatExpansionModule,
     MatIconModule,
     MatSidenavModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatTooltipModule,
   ]
 })
 export class MatUiModule { }

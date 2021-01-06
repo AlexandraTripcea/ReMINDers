@@ -17,10 +17,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
   private destroy$: Subject<boolean>;
   public currentUser = null;
   profileForm: FormGroup;
-  editable = true;
   matchedUsers = [];
   profileImgUrl = '';
   spinnerDissapears = false;
+  birthDate: Date;
+  age: any;
 
   constructor(private userService: UserService,
               private fb: FormBuilder,
@@ -28,10 +29,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
               private authService: AuthService,
               private cs: ChatService) {
     this.destroy$ = new Subject<boolean>();
-  }
-
-  signUserOut(): void {
-    this.authService.signUserOut();
   }
 
   async ngOnInit(): Promise<void> {
@@ -48,6 +45,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.profileImgUrl = this.currentUser.profileImg;
       this.spinnerDissapears = true;
     });
+
+    this.birthDate = await this.currentUser.birthDate.toDate();
+    const timeDiff = Date.now() - this.birthDate.getTime();
+    this.age = Math.floor((timeDiff / (1000 * 3600 * 24)) / 365);
+
     this.updateForm();
   }
 
@@ -71,10 +73,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
     });
   }
 
-  disableForm(): void {
-    this.profileForm.disable();
-  }
-
   onSubmit(): void {
     this.profileForm = this.fb.group({
       nickname: this.profileForm.value.nickname,
@@ -91,34 +89,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
     // console.log(this.profileForm.value.sexualPref);
     // console.log(this.profileForm.value.gender);
     // console.log('----------');
-    if (this.editable) {
-      await this.userService.updateProfileData(this.authService.getLoginId(), '/users', {
-        nickname: this.profileForm.value.nickname,
-        home: this.profileForm.value.home,
-        sexualPref: this.profileForm.value.sexualPref,
-        gender: this.profileForm.value.gender,
-      });
-      this.editable = false;
-      this.disableForm();
-    } else {
-      this.editable = true;
-    }
-  }
 
-  getColorEdit(): string {
-    if (this.editable) {
-      return 'primary';
-    } else {
-      return 'false';
-    }
-  }
-
-  isDisabled(): string {
-    if (this.editable) {
-      return 'false';
-    } else {
-      return 'true';
-    }
+    await this.userService.updateProfileData(this.authService.getLoginId(), '/users', {
+      nickname: this.profileForm.value.nickname,
+      home: this.profileForm.value.home,
+      sexualPref: this.profileForm.value.sexualPref,
+      gender: this.profileForm.value.gender,
+    });
   }
 
   onFileChanged(event): void {

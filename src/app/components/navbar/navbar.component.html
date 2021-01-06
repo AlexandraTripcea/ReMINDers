@@ -3,6 +3,7 @@
     <div class="nav-item mindmatch-font mr-2" *ngFor="let option of sideNavOptions">
       <a href="{{option.path}}">{{option.name}}</a>
     </div>
+    <button routerLink="/login" mat-raised-button color="accent" (click)="signUserOut()"> Sign out</button>
   </mat-sidenav>
   <mat-sidenav-content>
     <div>

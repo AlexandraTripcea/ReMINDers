@@ -8,9 +8,12 @@
           class="avatar">
       </mat-card-subtitle>
       <mat-card-content>
-        Hello, {{this.profileForm.value.nickname}}
+        {{this.profileForm.value.nickname}}, {{this.age}}
       </mat-card-content>
-      <input (change) ="onFileChanged($event)" type="file" accept="image/*">
+      <input style="display: none" #fileInput (change)="onFileChanged($event)" type="file" accept="image/*">
+      <button mat-mini-fab matTooltip="Bored of your picture photo? Choose another!" class="hover-class" style="background-color: whitesmoke" (click)="fileInput.click()">
+        <mat-icon>add</mat-icon>
+      </button>
     </mat-card>
   </div>
 
@@ -30,9 +33,9 @@
             <mat-label>Sexual Pref</mat-label>
             <input matInput id="sexualPref" name="sexualPref" formControlName="sexualPref" type="text">
           </mat-form-field>
-          <button mat-mini-fab class="mt-5" [color]="getColorEdit()" (click)="saveProfileData()" type="submit">
+          <button mat-mini-fab matTooltip="Save" class="hover-class mt-5" style="background-color: whitesmoke" (click)="saveProfileData()" type="submit">
                 <span class="material-icons">
-                  edit
+                  save
                 </span>
           </button>
         </div>
@@ -62,6 +65,5 @@
       </mat-tab>
     </mat-tab-group>
   </div>
-  <button routerLink="/login" mat-raised-button color="accent" (click)="signUserOut()"> Sign out</button>
 </form>
 
