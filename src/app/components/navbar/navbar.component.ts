@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Input, ViewChild} from '@angular/core';
 import {AuthGuard} from '../../services/auth/auth.guard';
 import {AuthService} from '../../services/auth/auth.service';
 import {Router} from '@angular/router';
@@ -10,9 +10,9 @@ import {Router} from '@angular/router';
 })
 export class NavbarComponent {
   sideNavOptions = [
-    {name: 'Home', path: ''},
-    {name: 'Profile', path: '/profile', canActivate: [AuthGuard]},
-    {name: 'Matcher', path: '/matcher', canActivate: [AuthGuard]}
+    {name: 'Home', path: '', img: 'home'},
+    {name: 'Profile', path: '/profile', img: 'person', canActivate: [AuthGuard]},
+    {name: 'Matcher', path: '/matcher', img: 'favorite_border', canActivate: [AuthGuard]}
   ];
   isLoggedIn = false;
 

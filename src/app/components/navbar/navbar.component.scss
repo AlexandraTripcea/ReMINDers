@@ -5,10 +5,36 @@ mat-sidenav-container {
   position: absolute;
 }
 
-mat-sidenav, mat-sidenav-content {
-  padding: 16px;
+mat-sidenav {
+  padding: 40px;
 }
 
 mat-sidenav {
-  background-color: lightcoral;
+  background-color: whitesmoke;
+}
+
+.mat-toolbar {
+  position: fixed;
+}
+
+.navbarMessage {
+  padding: 2px;
+  font-weight: 500;
+}
+
+a:link, a:visited {
+  color: black;
+  padding: 14px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-weight: 500;
+}
+
+a:hover, a:active {
+  background-color: grey;
+}
+
+.mat-icon {
+  color: black;
 }

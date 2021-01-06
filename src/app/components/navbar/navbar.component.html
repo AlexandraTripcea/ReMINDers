@@ -1,16 +1,23 @@
-<mat-sidenav-container *ngIf="isLoggedIn">
-  <mat-sidenav #sidenav mode="side">
-    <div class="nav-item mindmatch-font mr-2" *ngFor="let option of sideNavOptions">
-      <a href="{{option.path}}">{{option.name}}</a>
-    </div>
-    <button routerLink="/login" mat-raised-button color="accent" (click)="signUserOut()"> Sign out</button>
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <div>
-      <button (click)="sidenav.toggle()" mat-mini-fab color="primary" aria-label="Example icon button with a menu icon">
+<div class="example-container">
+  <mat-sidenav-container *ngIf="isLoggedIn">
+    <mat-toolbar color="primary" class="example-toolbar">
+      <button (click)="sideNav.toggle()" mat-mini-fab color="primary" aria-label="Example icon button with a menu icon">
         <mat-icon>menu</mat-icon>
       </button>
-    </div>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+      <h1 class="example-app-name">MindMatch</h1>
+    </mat-toolbar>
+    <mat-sidenav #sideNav mode="side">
+      <div class="navbarMessage mb-3">Hello, let's find your MindMatch!</div>
+      <div class="nav-item mindmatch-font mr-2" *ngFor="let option of sideNavOptions">
+        <a href="{{option.path}}">
+          <mat-icon aria-hidden="false" aria-label="Example home icon">{{option.img}}</mat-icon> {{option.name}}
+        </a>
+      </div>
+      <button routerLink="/login" mat-flat-button color="warn" class="mt-5" (click)="signUserOut()">
+        <mat-icon>close</mat-icon>
+        Sign out
+      </button>
+    </mat-sidenav>
+  </mat-sidenav-container>
+</div>
 <!-- main content container -->

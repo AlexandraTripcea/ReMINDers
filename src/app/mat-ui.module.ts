@@ -14,6 +14,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatToolbarModule} from '@angular/material/toolbar';
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatDatepickerModule,
     MatNativeDateModule,
     MatTooltipModule,
+    MatToolbarModule,
   ],
   exports: [
     MatButtonModule,
@@ -54,6 +56,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatDatepickerModule,
     MatNativeDateModule,
     MatTooltipModule,
+    MatToolbarModule,
   ]
 })
 export class MatUiModule { }
