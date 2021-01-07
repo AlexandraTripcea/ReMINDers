@@ -18,10 +18,9 @@
   <div class="chat-submit">
     <mat-form-field>
       <mat-label>Send message...</mat-label>
-      <textarea matInput
+      <textarea [(ngModel)]="newMsgw" matInput
       ></textarea>
     </mat-form-field>
-
     <button class="submit-button" mat-raised-button color="accent" (click)="submit(chat.id)">Send</button>
   </div>
 </div>

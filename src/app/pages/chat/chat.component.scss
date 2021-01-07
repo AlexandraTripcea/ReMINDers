@@ -1,37 +1,40 @@
-@import '../../../_variable.scss';
+@import '../../../variable';
 
 .container-fluid {
   display: flex;
   height: 100%;
-  padding: 5%;
   justify-content: center;
+
   .chat-submit {
+    flex-flow: row;
+    display: flex;
     padding: 10%;
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
-    width: 100%;
+    justify-content: center;
 
     * {
       margin: 1%;
     }
-
+    .submit-button{
+      padding:5px;
+    }
     mat-form-field {
       textarea {
         resize: none;
-        width: 110%;
       }
     }
   }
 
   .chat-container {
+    max-height: 60%;
     width: 50%;
-    color: mat-contrast($ReMINDers-primary, 300);
-
     .message {
       display: flex;
       flex-flow: column;
+      color: mat-contrast($ReMINDers-primary, 300);
 
       .other-user-message {
         align-self: flex-start;

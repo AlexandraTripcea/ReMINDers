@@ -25,10 +25,11 @@ export class ChatComponent implements OnInit {
     this.loggedInUser = this.auth.getLoginId();
     const chatId = this.route.snapshot.paramMap.get('id');
     this.chat$ = this.cs.get(chatId);
-    this.chat$.subscribe(chat => console.log(chat));
+    this.chat$;
   }
 
   submit(chatId): void {
+    console.log(this.newMsg)
     this.cs.sendMessage(chatId, this.newMsg);
     this.newMsg = '';
   }

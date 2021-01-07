@@ -1,8 +1,7 @@
 import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {UserService} from '../../services/user/user.service';
-import {BehaviorSubject, from, Observable, Subject} from 'rxjs';
+import {BehaviorSubject, Subject} from 'rxjs';
 import {fader, sliderNpopper} from '../../../animations';
-import {Behavior} from 'popper.js';
 
 @Component({
   selector: 'app-matcher',
@@ -27,6 +26,7 @@ export class MatcherComponent implements OnInit, OnDestroy {
   /*TODO:
   -popup profile sidenav responsive
   -responsive date
+  -no matches message
     -password validators
     -questions
     -homepage
