@@ -48,7 +48,13 @@ export class UserService implements OnDestroy {
   updateProfileData(docId: any, path: string, docData: any): Promise<any> {
     return this.firestore.collection(path)
       .doc(docId)
-      .update({nickname: docData.nickname, home: docData.home, sexualPref: docData.sexualPref, gender: docData.gender})
+      .update({
+        nickname: docData.nickname,
+        home: docData.home,
+        sexualPref: docData.sexualPref,
+        gender: docData.gender,
+        hobbies: docData.hobbies
+      })
       .catch(error => console.log(error));
   }
 

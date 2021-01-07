@@ -12,19 +12,16 @@
     width: 35%;
     align-self: center;
     flex-flow: column;
-    color: mat-contrast($ReMINDers-primary, 300);
 
     mat-form-field {
       width: 100%;
     }
 
     a.register {
-      color: mat-contrast($ReMINDers-primary, 300);
       align-self: flex-end;
     }
 
     a.forgotten-pass {
-      color: mat-contrast($ReMINDers-primary, 300);
       align-self: flex-start;
 
     }
@@ -75,7 +72,6 @@
     *.submit-button {
       margin-top: 15px;
       padding: 10px;
-
     }
 
     * a {

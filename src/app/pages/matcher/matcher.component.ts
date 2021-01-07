@@ -24,9 +24,6 @@ export class MatcherComponent implements OnInit, OnDestroy {
   matchMade$: BehaviorSubject<boolean>;
 
   /*TODO:
-  -popup profile sidenav responsive
-  -responsive date
-  -no matches message
     -password validators
     -questions
     -homepage
@@ -49,6 +46,7 @@ export class MatcherComponent implements OnInit, OnDestroy {
       this.spinnerDissapears = true;
     });
     this.currentMatchedUser = this.matchedUsers[0];
+
   }
 
   resetAnimationAndMessage(state: string): void {
@@ -76,13 +74,15 @@ export class MatcherComponent implements OnInit, OnDestroy {
         {
           uid: possibleMatch.uid,
           nickname: possibleMatch.data.nickname,
-          gender: possibleMatch.data.gender
+          gender: possibleMatch.data.gender,
+          profileImg: possibleMatch.data.profileImg
         }, this.currentUserId));
       promisesSet.push(this.userService.addUserMatch(
         {
           uid: this.currentUserId,
           nickname: this.currentUser.nickname,
-          gender: this.currentUser.gender
+          gender: this.currentUser.gender,
+          profileImg: this.currentUser.profileImg
         }, possibleMatch.uid));
       await Promise.all(promisesSet).then(() => {
         this.matchMade$.next(true);
