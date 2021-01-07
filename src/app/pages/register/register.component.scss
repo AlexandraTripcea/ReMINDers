@@ -104,7 +104,7 @@
   .welcome-container {
     height: 20%;
   }
-  .contact-input-field, .user-pass-form{
+  .contact-input-field, .user-pass-form {
     width: 80%;
   }
 
@@ -117,7 +117,9 @@
   .welcome-container {
     height: 20%;
   }
-
+  *.submit-button {
+    padding: 10px;
+  }
 }
 
 @media only screen and (min-width: 1440px) and (max-width: 2158px) {
@@ -127,14 +129,16 @@
 }
 
 @media only screen and (min-width: 2159px) {
-  .contact-input-field {
+  .contact-input-field, .user-pass-form {
     width: 35%;
 
     mat-radio-group {
       margin: 7%;
     }
   }
-
+  *.submit-button {
+    padding: 30px;
+  }
 }
 
 @media only screen and (min-width: 3839px) {
@@ -145,6 +149,7 @@
       margin: 10%;
     }
   }
-
-
+  *.submit-button {
+    padding: 40px;
+  }
 }

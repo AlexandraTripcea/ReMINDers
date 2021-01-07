@@ -75,6 +75,7 @@ export class ChatService implements OnDestroy {
     await this.userService.getCurrentlyLoggedInUserInfo().then(loggedInUser => nickname = loggedInUser.data.nickname);
     const data = {
       nickname,
+      uid,
       content,
       createdAt: Date.now()
     };

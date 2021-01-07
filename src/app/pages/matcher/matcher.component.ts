@@ -26,6 +26,7 @@ export class MatcherComponent implements OnInit, OnDestroy {
 
   /*TODO:
   -popup profile sidenav responsive
+  -responsive date
     -password validators
     -questions
     -homepage

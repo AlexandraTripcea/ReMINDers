@@ -1,23 +1,23 @@
-<div class="example-container">
   <mat-sidenav-container *ngIf="isLoggedIn">
-    <mat-toolbar color="primary" class="example-toolbar">
-      <button (click)="sideNav.toggle()" mat-mini-fab color="primary" aria-label="Example icon button with a menu icon">
-        <mat-icon>menu</mat-icon>
+    <mat-toolbar class="navbar-static-top">
+      <button class="submit-button" (click)="sideNav.toggle()" mat-fab>
+        <mat-icon class="">menu</mat-icon>
       </button>
-      <h1 class="example-app-name">MindMatch</h1>
+      <p class="mindmatch-title ">MindMatch</p>
     </mat-toolbar>
     <mat-sidenav #sideNav mode="side">
-      <div class="navbarMessage mb-3">Hello, let's find your MindMatch!</div>
+      <p class="mindmatch-font navbar-message mb-3">Let's find your MindMatch!</p>
       <div class="nav-item mindmatch-font mr-2" *ngFor="let option of sideNavOptions">
         <a href="{{option.path}}">
-          <mat-icon aria-hidden="false" aria-label="Example home icon">{{option.img}}</mat-icon> {{option.name}}
+          <mat-icon aria-hidden="false">{{option.img}}</mat-icon>
+          {{option.name}}
         </a>
+
       </div>
-      <button routerLink="/login" mat-flat-button color="warn" class="mt-5" (click)="signUserOut()">
+      <button routerLink="/login" mat-flat-button color="warn" class="submit-button" (click)="signUserOut()">
         <mat-icon>close</mat-icon>
         Sign out
       </button>
     </mat-sidenav>
   </mat-sidenav-container>
-</div>
 <!-- main content container -->

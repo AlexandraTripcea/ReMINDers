@@ -62,3 +62,13 @@
   font-weight: 700;
 }
 
+@media only screen and (max-width: 767px) {
+  .container-fluid{
+    flex-flow: column;
+  }
+}
+@media only screen and (min-width: 768px) and (max-width: 1439px) {
+  .container-fluid{
+    flex-flow: column;
+  }
+}

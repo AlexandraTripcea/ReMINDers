@@ -12,6 +12,7 @@ import {AuthService} from '../../services/auth/auth.service';
 export class ChatComponent implements OnInit {
   chat$: Observable<any>;
   newMsg: string;
+  loggedInUser = '';
 
   constructor(
     public cs: ChatService,
@@ -21,8 +22,10 @@ export class ChatComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loggedInUser = this.auth.getLoginId();
     const chatId = this.route.snapshot.paramMap.get('id');
     this.chat$ = this.cs.get(chatId);
+    this.chat$.subscribe(chat => console.log(chat));
   }
 
   submit(chatId): void {

@@ -18,18 +18,14 @@
       width: 100%;
     }
 
-    a.register{
-      transition: 0.2s ease-in-out;
+    a.register {
       color: mat-contrast($ReMINDers-primary, 300);
       align-self: flex-end;
-      margin:1%;
     }
 
-    a.forgotten-pass{
-      transition: 0.2s ease-in-out;
+    a.forgotten-pass {
       color: mat-contrast($ReMINDers-primary, 300);
       align-self: flex-start;
-      margin:1%;
 
     }
 
@@ -40,7 +36,6 @@
     .submit-button {
       align-self: flex-start;
       left: 1.5%;
-      transition: 0.2s ease-in;
       background-color: mat-color($ReMINDers-accent, 300);
     }
 
@@ -63,7 +58,7 @@
       width: 80%;
     }
 
-    .submit-button {
+    *.submit-button {
       margin-top: 15px;
     }
   }
@@ -74,6 +69,17 @@
   .container-fluid {
     .contact-input-field {
       width: 50%;
+
+    }
+
+    *.submit-button {
+      margin-top: 15px;
+      padding: 10px;
+
+    }
+
+    * a {
+      margin-bottom: 20px;
     }
   }
 }
@@ -89,10 +95,12 @@
 @media only screen and (min-width: 2159px) {
   .contact-input-field {
     width: 35%;
-    .submit-button {
+
+    *.submit-button {
       font-size: 35px;
       padding: 15px;
     }
+
     a {
       font-size: 25px;
     }
@@ -100,15 +108,17 @@
 }
 
 @media only screen and (min-width: 3839px) {
-    .contact-input-field {
-      width: 35%;
-      .submit-button {
-        font-size: 50px;
-        padding: 20px;
-      }
+  .contact-input-field {
+    width: 35%;
 
-      a {
-        font-size: 35px;
-      }
+    *.submit-button {
+      font-size: 50px;
+      padding: 20px;
+      margin-top: 25px;
+    }
+
+    * a {
+      font-size: 35px;
     }
   }
+}

@@ -5,21 +5,40 @@ mat-sidenav-container {
   position: absolute;
 }
 
+
+mat-toolbar {
+  display: flex;
+  position: fixed;
+  height: 7vh;
+  * {
+    margin: 1%;
+  }
+}
+
 mat-sidenav {
-  padding: 40px;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  padding:1%;
+  p {
+    color: mat-contrast($ReMINDers-primary, 300)
+  }
+  .nav-item{
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+  }
+  .submit-button{
+    align-self: center;
+    top:45%;
+  }
 }
 
 mat-sidenav {
   background-color: whitesmoke;
 }
 
-.mat-toolbar {
-  position: fixed;
-}
-
 .navbarMessage {
-  padding: 2px;
-  font-weight: 500;
 }
 
 a:link, a:visited {
@@ -37,4 +56,24 @@ a:hover, a:active {
 
 .mat-icon {
   color: black;
+}
+
+@media only screen and (max-width: 767px) {
+
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1439px) {
+
+}
+
+@media only screen and (min-width: 1440px) and (max-width: 2158px) {
+
+}
+
+@media only screen and (min-width: 2159px) and (max-width: 3838px) {
+
+}
+
+@media only screen and (min-width: 3839px) {
+
 }

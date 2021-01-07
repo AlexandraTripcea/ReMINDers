@@ -59,7 +59,7 @@ a:hover {
   .mindmatch-title {
     font-size: 22px;
   }
-  .submit-button {
+  *.submit-button {
     margin-top: 15px;
   }
 }
@@ -74,7 +74,8 @@ a:hover {
   .mindmatch-title {
     font-size: 26px;
   }
-  .submit-button {
+  *.submit-button {
+    margin-top: 15px;
     padding: 20px;
     font-size: 24px;
   }
@@ -103,10 +104,10 @@ a:hover {
   .mindmatch-title {
     font-size: 45px;
   }
-  .submit-button {
+  *.submit-button {
     font-size: 35px;
-    padding: 15px;
-    margin:15px;
+    padding: 40px;
+    margin: 15px;
   }
 }
 
@@ -123,10 +124,9 @@ a:hover {
   .mindmatch-title {
     font-size: 75px;
   }
-  .submit-button {
+  *.submit-button {
     font-size: 50px;
-    padding: 30px;
-    margin:20px;
+    padding: 40px;
+    margin: 20px;
   }
-
 }

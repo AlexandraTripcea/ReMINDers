@@ -17,7 +17,6 @@ export class ChatGuard implements CanActivate {
     await this.userService.getCurrentlyLoggedInUserInfo().then(loggedInUser => currentUser = loggedInUser);
     let chat;
     await this.userService.getFromFirestore('chats', route.url[1].path).then(foundChat => chat = foundChat.data());
-    console.log(currentUser)
     if (currentUser.uid === chat.uid1 || currentUser.uid === chat.uid2) {
       return true;
     }
