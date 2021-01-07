@@ -1,25 +1,24 @@
 <div class="container-fluid" *ngIf="chat$ | async as chat">
   <div class="chat-container">
     <div class="message mindmatch-font" *ngFor="let msg of chat.messages; trackBy: trackByCreated">
-      <div *ngIf="msg.uid === loggedInUser" class="current-user-message">
+      <div *ngIf="msg.uid === loggedInUser" class="current-user-message mr-4">
         <div class="user mindmatch-title">
-          <p>{{msg.nickname}}</p>
+          <p class="ml-2 messageContent">{{msg.nickname}}</p>
         </div>
-        <p>{{ msg.content }}</p>
+        <p class="ml-2">{{ msg.content }}</p>
       </div>
-      <div *ngIf="msg.uid !== loggedInUser" class="other-user-message">
+      <div *ngIf="msg.uid !== loggedInUser" class="other-user-message ml-4">
         <div class="user mindmatch-title">
-          <p>{{msg.nickname}}</p>
+          <p class="ml-2">{{msg.nickname}}</p>
         </div>
-        <p>{{ msg.content }}</p>
+        <p class="ml-2 messageContent">{{ msg.content }}</p>
       </div>
     </div>
   </div>
   <div class="chat-submit">
     <mat-form-field>
       <mat-label>Send message...</mat-label>
-      <textarea [(ngModel)]="newMsgw" matInput
-      ></textarea>
+      <textarea [(ngModel)]="newMsg" matInput></textarea>
     </mat-form-field>
     <button class="submit-button" mat-raised-button color="accent" (click)="submit(chat.id)">Send</button>
   </div>

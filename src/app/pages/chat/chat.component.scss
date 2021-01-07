@@ -29,8 +29,11 @@
   }
 
   .chat-container {
-    max-height: 60%;
-    width: 50%;
+    background-color: whitesmoke;
+    border-radius: 25px;
+    width: 80%;
+    height: 60%;
+    overflow: auto;
     .message {
       display: flex;
       flex-flow: column;
@@ -38,11 +41,26 @@
 
       .other-user-message {
         align-self: flex-start;
+        background-image: linear-gradient(to bottom, white, mat-color($ReMINDers-accent, 200));
+        border-radius: 15px;
+        width:min-content;
+        margin: 1%;
       }
 
       > *.current-user-message {
         align-self: flex-end;
+        background-image: linear-gradient(to bottom, white, mat-color($ReMINDers-accent, 200));
+        border-radius: 15px;
+        width:min-content;
+        margin: 1%;
       }
     }
   }
 }
+
+.mindmatch-title {
+  font-weight: 700;
+  font-size: small;
+}
+
+
