@@ -106,6 +106,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
         rejects: [],
         chats: [],
         likes: [],
+        bio: '',
+        hobbies: [],
         profileImg: ''
       }).then(() => {
         this.succes = true;

@@ -15,7 +15,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatToolbarModule} from '@angular/material/toolbar';
-
+import {MatChipsModule} from '@angular/material/chips';
 
 @NgModule({
   declarations: [
@@ -38,6 +38,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     MatNativeDateModule,
     MatTooltipModule,
     MatToolbarModule,
+    MatChipsModule,
   ],
   exports: [
     MatButtonModule,
@@ -57,6 +58,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     MatNativeDateModule,
     MatTooltipModule,
     MatToolbarModule,
+    MatChipsModule,
   ]
 })
 export class MatUiModule { }

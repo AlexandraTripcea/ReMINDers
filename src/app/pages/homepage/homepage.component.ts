@@ -6,7 +6,7 @@ import {Subject} from 'rxjs';
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.scss']
 })
-export class HomepageComponent implements OnInit,OnDestroy {
+export class HomepageComponent implements OnInit, OnDestroy {
   private destroy$: Subject<boolean>;
 
   constructor() {

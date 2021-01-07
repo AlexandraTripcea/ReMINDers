@@ -6,6 +6,8 @@ import {Router} from '@angular/router';
 import {AuthService} from '../../services/auth/auth.service';
 import {ChatService} from '../../services/chat/chat.service';
 import {loggedIn} from '@angular/fire/auth-guard';
+import {MatChipInputEvent} from '@angular/material/chips';
+
 
 @Component({
   selector: 'app-profile',
@@ -23,6 +25,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
   birthDate: Date;
   age: any;
 
+  visible = true;
+  selectable = true;
+  removable = true;
+  addOnBlur = true;
+  hobbies = [];
+
   constructor(private userService: UserService,
               private fb: FormBuilder,
               private router: Router,
@@ -37,6 +45,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       gender: [''],
       home: [''],
       sexualPref: [''],
+      bio: [''],
     });
     await this.userService.getCurrentlyLoggedInUserInfo().then(loggedInUser => this.currentUser = loggedInUser.data);
 
@@ -49,6 +58,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.birthDate = await this.currentUser.birthDate.toDate();
     const timeDiff = Date.now() - this.birthDate.getTime();
     this.age = Math.floor((timeDiff / (1000 * 3600 * 24)) / 365);
+    this.hobbies = await this.currentUser.hobbies;
 
     this.updateForm();
   }
@@ -65,11 +75,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   updateForm(): void {
+    console.log(this.currentUser);
+
     this.profileForm = this.fb.group({
       nickname: this.currentUser.nickname,
       gender: this.currentUser.gender,
       home: this.currentUser.home,
       sexualPref: this.currentUser.sexualPref,
+      bio: this.currentUser.bio,
     });
   }
 
@@ -79,6 +92,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       gender: this.profileForm.value.gender,
       home: this.profileForm.value.home,
       sexualPref: this.profileForm.value.sexualPref,
+      bio: this.profileForm.value.bio,
     });
   }
 
@@ -90,11 +104,15 @@ export class ProfileComponent implements OnInit, OnDestroy {
     // console.log(this.profileForm.value.gender);
     // console.log('----------');
 
+    console.log(this.hobbies);
+
     await this.userService.updateProfileData(this.authService.getLoginId(), '/users', {
       nickname: this.profileForm.value.nickname,
       home: this.profileForm.value.home,
       sexualPref: this.profileForm.value.sexualPref,
       gender: this.profileForm.value.gender,
+      bio: this.profileForm.value.bio,
+      hobbies: this.hobbies,
     });
   }
 
@@ -105,6 +123,29 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.userService.savePhoto(selectedFile).then(newProfileImgUrl => {
         this.profileImgUrl = newProfileImgUrl;
       });
+    }
+  }
+
+  add(event: MatChipInputEvent): void {
+    const input = event.input;
+    const value = event.value;
+
+    // Add our hobby
+    if ((value || '').trim()) {
+      this.hobbies.push(value.trim());
+    }
+
+    // Reset the input value
+    if (input) {
+      input.value = '';
+    }
+  }
+
+  remove(hobby: string): void {
+    const index = this.hobbies.indexOf(hobby);
+
+    if (index >= 0) {
+      this.hobbies.splice(index, 1);
     }
   }
 

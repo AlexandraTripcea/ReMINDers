@@ -26,6 +26,9 @@
   background-image: linear-gradient(to bottom, white, mat-color($ReMINDers-primary, 100));
   opacity: 0.7;
   border-radius: 10px;
+  mat-tab-group {
+    overflow: hidden;
+  }
 }
 
 .mat-card-header {
@@ -37,14 +40,25 @@
   background-image: linear-gradient(to bottom, white, mat-color($ReMINDers-primary, 100));
 }
 
-.mat-card {
-}
-
 .avatar {
-  height: 100%;
+  height: auto;
   width: 100%;
+  min-height: 60%;
+  max-width:70%;
+  max-height:70%;
 }
 
 .hover-class:hover {
-  background-color: grey;
+  background-color: grey !important;
 }
+
+.picture {
+  height: auto;
+  background-image: linear-gradient(to bottom, white, whitesmoke);
+}
+
+.matcard-avatar {
+  background-image: linear-gradient(to bottom, white, mat-color($ReMINDers-primary, 100));
+  font-weight: 700;
+}
+
