@@ -1,11 +1,10 @@
 import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
-import {fromEvent, Subject} from 'rxjs';
+import {Subject} from 'rxjs';
 import {UserService} from '../../services/user/user.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthService} from '../../services/auth/auth.service';
 import {ChatService} from '../../services/chat/chat.service';
-import {loggedIn} from '@angular/fire/auth-guard';
 import {MatChipInputEvent} from '@angular/material/chips';
 
 
@@ -18,6 +17,7 @@ import {MatChipInputEvent} from '@angular/material/chips';
 export class ProfileComponent implements OnInit, OnDestroy {
   private destroy$: Subject<boolean>;
   public currentUser = null;
+  modifiedForm = false;
   profileForm: FormGroup;
   matchedUsers = [];
   profileImgUrl = '';
@@ -75,8 +75,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   updateForm(): void {
-    console.log(this.currentUser);
-
     this.profileForm = this.fb.group({
       nickname: this.currentUser.nickname,
       gender: this.currentUser.gender,
@@ -103,9 +101,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     // console.log(this.profileForm.value.sexualPref);
     // console.log(this.profileForm.value.gender);
     // console.log('----------');
-
-    console.log(this.hobbies);
-
+    this.modifiedForm = false;
     await this.userService.updateProfileData(this.authService.getLoginId(), '/users', {
       nickname: this.profileForm.value.nickname,
       home: this.profileForm.value.home,
@@ -113,7 +109,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       gender: this.profileForm.value.gender,
       bio: this.profileForm.value.bio,
       hobbies: this.hobbies,
-    });
+    }).then(() => this.modifiedForm = true);
   }
 
   onFileChanged(event): void {
@@ -126,10 +122,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
     }
   }
 
-  add(event: MatChipInputEvent): void {
+  addChip(event: MatChipInputEvent): void {
     const input = event.input;
     const value = event.value;
-
     // Add our hobby
     if ((value || '').trim()) {
       this.hobbies.push(value.trim());

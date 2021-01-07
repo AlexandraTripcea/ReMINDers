@@ -37,7 +37,6 @@
     .message {
       display: flex;
       flex-flow: column;
-      color: mat-contrast($ReMINDers-primary, 300);
 
       .other-user-message {
         align-self: flex-start;

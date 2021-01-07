@@ -25,7 +25,7 @@ a:hover {
 
 .mindmatch-font {
   font-family: Roboto;
-  color: white;
+  color: mat-contrast($ReMINDers-primary,300);
   letter-spacing: 0.5px;
 }
 

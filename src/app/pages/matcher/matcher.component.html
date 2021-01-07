@@ -41,10 +41,10 @@
       <!--      General info and buttons-->
     </mat-card>
   </ng-template>
+
 </div>
 
-<div [@fader] *ngIf="spinnerDissapears && matchedUserCounter === matchedUsers.length">
-  <p class="mindmatch-title">You've ran out of potential MindMatches, but refresh later!</p>
-</div>
+
+  <p class="no-matches-message mindmatch-title" [@fader] *ngIf="spinnerDissapears && matchedUserCounter === matchedUsers.length">You've ran out of potential MindMatches, but refresh later!</p>
 
 <app-popup *ngIf="matchMade$ | async" [popupMessage]="matchMessage"></app-popup>

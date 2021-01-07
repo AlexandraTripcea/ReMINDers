@@ -7,6 +7,19 @@
   height: 100%;
   background-color: whitesmoke;
 }
+
+mat-card{
+  img{
+    object-fit: cover;
+  }
+}
+
+.mindmatches {
+  p{
+    opacity: 0.7;
+  }
+}
+
 .content {
   flex: 30% !important;
   display: flex;
@@ -18,20 +31,21 @@
   font-weight: 700;
 }
 
+
 .mat-form-field {
   width: 100%;
 }
-.personalinfo {
+
+.personal-info {
   height: 90%;
   background-image: linear-gradient(to bottom, white, mat-color($ReMINDers-primary, 100));
   opacity: 0.7;
   border-radius: 10px;
-  mat-tab-group {
-    overflow: hidden;
-  }
 }
 
 .mat-card-header {
+  display: flex;
+  justify-content: center;
   background-image: linear-gradient(to bottom, white, mat-color($ReMINDers-primary, 100));
   border-radius: 25px;
 }
@@ -44,8 +58,8 @@
   height: auto;
   width: 100%;
   min-height: 60%;
-  max-width:70%;
-  max-height:70%;
+  max-width: 70%;
+  max-height: 70%;
 }
 
 .hover-class:hover {
@@ -63,12 +77,39 @@
 }
 
 @media only screen and (max-width: 767px) {
-  .container-fluid{
+  .container-fluid {
     flex-flow: column;
   }
+
 }
+
 @media only screen and (min-width: 768px) and (max-width: 1439px) {
-  .container-fluid{
+  .container-fluid {
     flex-flow: column;
   }
+
+  mat-card {
+    .submit-button {
+      width: 75px;
+      height: 75px;
+
+      i {
+        display: block;
+        font-size: 50px;
+      }
+    }
+  }
+
+  .personal-info-int {
+    .submit-button {
+      width: 75px;
+      height: 75px;
+
+      i {
+        display: block;
+        font-size: 50px;
+      }
+    }
+  }
+
 }
